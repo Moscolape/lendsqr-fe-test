@@ -1,15 +1,20 @@
 .dashboard-navbar {
-  height: 80px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100px;
   background: #ffffff;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 60px;
+  padding: 0 40px 0px 30px;
   border-bottom: 1px solid #e5e9f2;
   font-family: "Work Sans", sans-serif;
+  z-index: 1000;
 }
 
-/* LEFT */
+
 .navbar-left {
   display: flex;
   align-items: center;
@@ -19,11 +24,11 @@
   height: 30px;
 }
 
-/* CENTER */
 .navbar-search {
   display: flex;
   align-items: center;
   width: 400px;
+  margin-left: 9.2rem;
   border: 1px solid #dcdfe8;
   border-radius: 8px;
   overflow: hidden;
@@ -31,7 +36,8 @@
   input {
     flex: 1;
     border: none;
-    padding: 12px;
+    padding: 11.6px;
+    width: 344px;
     font-size: 14px;
     outline: none;
 
@@ -53,10 +59,13 @@
     svg {
       color: #ffffff;
     }
+
+    &:hover {
+      background-color: darken(#39cdcc, 5%);
+    }
   }
 }
 
-/* RIGHT */
 .navbar-right {
   display: flex;
   align-items: center;
@@ -67,7 +76,7 @@
   font-size: 14px;
   color: #213f7d;
   text-decoration: underline;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 .notification-btn {
@@ -85,8 +94,8 @@
 }
 
 .user-avatar {
-  width: 40px;
-  height: 40px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   object-fit: cover;
 }

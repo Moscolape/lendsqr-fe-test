@@ -1,0 +1,18 @@
+.dashboard-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding-top: 100px;
+}
+
+.main {
+  display: flex;
+}
+
+.dashboard-main-content {
+  margin-left: 280px;
+  padding: 40px;
+  background-color: #fbfbfb;
+  min-height: calc(100vh - 100px);
+  overflow-y: auto;
+}

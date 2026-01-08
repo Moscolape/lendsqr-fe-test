@@ -1,0 +1,75 @@
+.dashboard-sidebar {
+  position: fixed;
+  top: 100px;
+  left: 0;
+  width: 283px;
+  height: calc(100vh - 100px);
+  background: #ffffff;
+  border-right: 1px solid #e5e9f2;
+  padding: 29px 0;
+  font-family: "Work Sans", sans-serif;
+  overflow-y: auto;
+
+  /* Firefox */
+  scrollbar-width: thin;
+  scrollbar-color: #cfd6e4 transparent;
+
+  /* WebKit (Chrome, Edge, Safari) */
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #cfd6e4;
+    border-radius: 8px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: #b6c0d4;
+  }
+}
+
+
+.switch-org {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 30px 30px;
+  font-size: 16px;
+  font-weight: 400;
+  color: #213f7d;
+  cursor: pointer;
+}
+
+.logout-section {
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid #e5e9f2;
+}
+
+.logout-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 30px;
+  font-size: 16px;
+  color: #213f7d;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  svg {
+    color: inherit;
+  }
+}
+
+.lendsqr-version {
+  display: block;
+  margin-top: 20px;
+  padding: 0 30px;
+  font-size: 14px;
+  color: #213F7D;
+}

@@ -1,0 +1,27 @@
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 30px;
+  font-size: 16px;
+  font-weight: 400;
+  color: #7a8cb1;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  svg {
+    color: inherit;
+  }
+
+  &:hover {
+    background: #f5fcfc;
+    color: #213f7d;
+  }
+}
+
+.sidebar-item.active {
+  background: rgba(57, 205, 204, 0.06);
+  color: #213f7d;
+  border-left: 4px solid #39cdcc;
+  padding-left: 26px;
+}
