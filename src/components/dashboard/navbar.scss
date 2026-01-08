@@ -1,0 +1,98 @@
+.dashboard-navbar {
+  height: 80px;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 60px;
+  border-bottom: 1px solid #e5e9f2;
+  font-family: "Work Sans", sans-serif;
+}
+
+/* LEFT */
+.navbar-left {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-logo {
+  height: 30px;
+}
+
+/* CENTER */
+.navbar-search {
+  display: flex;
+  align-items: center;
+  width: 400px;
+  border: 1px solid #dcdfe8;
+  border-radius: 8px;
+  overflow: hidden;
+
+  input {
+    flex: 1;
+    border: none;
+    padding: 12px;
+    font-size: 14px;
+    outline: none;
+
+    &::placeholder {
+      color: #b0b5c0;
+    }
+  }
+
+  button {
+    background: #39cdcc;
+    border: none;
+    padding: 13px 21px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+
+    svg {
+      color: #ffffff;
+    }
+  }
+}
+
+/* RIGHT */
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.docs-link {
+  font-size: 14px;
+  color: #213f7d;
+  text-decoration: underline;
+  font-family: 'Roboto', sans-serif;
+}
+
+.notification-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #213f7d;
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.username {
+  font-size: 14px;
+  font-weight: 500;
+  color: #213f7d;
+}
