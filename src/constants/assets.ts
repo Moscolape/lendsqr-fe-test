@@ -27,6 +27,14 @@ import pricing from "../assets/badge-percent 1.svg";
 import audit from "../assets/clipboard-list 1.svg";
 import systems from "../assets/tire 1.svg";
 import logout from "../assets/sign-out 1.svg";
+import userstat1 from "../assets/userstat1.svg";
+import userstat2 from "../assets/userstat2.svg";
+import userstat3 from "../assets/userstat3.svg";
+import userstat4 from "../assets/userstat4.svg";
+import filter from "../assets/filter-results-button.svg";
+import viewUser from "../assets/np_view.svg";
+import activateUser from "../assets/np_user.svg";
+import blacklistUser from "../assets/np_delete-friend.svg";
 
 export const ASSETS = {
   logo,
@@ -58,4 +66,12 @@ export const ASSETS = {
   audit,
   systems,
   logout,
+  userstat1,
+  userstat2,
+  userstat3,
+  userstat4,
+  filter,
+  viewUser,
+  activateUser,
+  blacklistUser,
 };

@@ -1,0 +1,83 @@
+.filter-dropdown {
+  width: 270px;
+  padding: 1rem;
+  background: #ffffff;
+  border: 1px solid #e5e9f2;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+
+    label {
+      font-size: 14px;
+      font-weight: 500;
+      color: #545f7d;
+      text-transform: none;
+    }
+
+    input,
+    select {
+      height: 40px;
+      width: 230px;
+      padding: 0 12px;
+      font-size: 13px;
+      border-radius: 8px;
+      border: 2px solid #dfe3eb;
+      outline: none;
+      color: #545f7d;
+
+      &:focus {
+        border-color: #39cdcc;
+      }
+    }
+
+    select {
+      background-color: #fff;
+      cursor: pointer;
+    }
+  }
+
+  .actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 8px;
+
+    button {
+      height: 40px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .reset {
+      background: #ffffff;
+      border: 1px solid #545f7d;
+      color: #545f7d;
+      width: 98px;
+
+      &:hover {
+        background-color: darken(#fcfcfc, 2%);
+      }
+    }
+
+    .filter {
+      background: #39cdcc;
+      border: none;
+      color: #ffffff;
+      width: 98px;
+
+      &:hover {
+        background-color: darken(#39cdcc, 5%);
+      }
+    }
+  }
+}

@@ -11,8 +11,9 @@
 
 .dashboard-main-content {
   margin-left: 280px;
-  padding: 40px;
+  padding: 60px;
   background-color: #fbfbfb;
   min-height: calc(100vh - 100px);
+  min-width: calc(100% - 280px);
   overflow-y: auto;
 }

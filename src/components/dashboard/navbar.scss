@@ -8,7 +8,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 40px 0px 30px;
+  padding: 0 60px 0px 30px;
   border-bottom: 1px solid #e5e9f2;
   font-family: "Work Sans", sans-serif;
   z-index: 1000;
@@ -28,7 +28,7 @@
   display: flex;
   align-items: center;
   width: 400px;
-  margin-left: 9.2rem;
+  margin-left: 10.3rem;
   border: 1px solid #dcdfe8;
   border-radius: 8px;
   overflow: hidden;
@@ -55,10 +55,6 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
-
-    svg {
-      color: #ffffff;
-    }
 
     &:hover {
       background-color: darken(#39cdcc, 5%);
