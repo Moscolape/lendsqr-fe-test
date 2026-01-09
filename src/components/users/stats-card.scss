@@ -2,20 +2,21 @@
 
 .stats-cards {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1.667rem;
+  grid-template-columns: repeat(2, 1fr);
+//   grid-template-columns: 1fr;
+  gap: 0.889rem;
   padding-top: 2rem;
   padding-bottom: 3rem;
 
-  @media (max-width: 1024px) {
+  @media (min-width: 768px) {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  @media (max-width: 640px) {
-    grid-template-columns: 1fr;
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.667rem;
   }
 }
-
 
 .stats-card {
   background: #ffffff;
@@ -24,6 +25,10 @@
   gap: 1rem;
   box-shadow: 0 5px 5px rgba(0, 0, 0, 0.03);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  @media (max-width: 1024px) {
+    padding: 1rem;
+  }
 
   &:hover {
     transform: translateY(-2px);
@@ -37,19 +42,19 @@
     @include mixins.flex-center;
 
     &.purple {
-      background: #DF18FF15;
+      background: #df18ff15;
     }
 
     &.blue {
-      background: #5718FF15;
+      background: #5718ff15;
     }
 
     &.orange {
-      background: #F55F4415;
+      background: #f55f4415;
     }
 
     &.pink {
-      background: #FF336615;
+      background: #ff336615;
     }
   }
 
@@ -63,12 +68,20 @@
       text-transform: uppercase;
       color: #6b7280;
       padding-bottom: 0.5rem;
+
+      @media (max-width: 1024px) {
+        font-size: 0.675rem;
+      }
     }
 
     .value {
       font-size: 1.5rem;
       font-weight: 600;
       color: #111827;
+
+      @media (max-width: 1024px) {
+        font-size: 1.25rem;
+      }
     }
   }
 }

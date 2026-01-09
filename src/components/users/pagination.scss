@@ -6,6 +6,15 @@
   padding: 1rem 0;
   font-size: 0.875rem;
   color: #545f7d;
+
+  /* ======================
+     Tablet & Mobile
+  ====================== */
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
 }
 
 .pagination-info {
@@ -22,11 +31,25 @@
     font-weight: 500;
     cursor: pointer;
   }
+
+  /* Mobile */
+  @media (max-width: 768px) {
+    width: 100%;
+    justify-content: space-between;
+  }
 }
 
 .pagination-controls {
   @include mixins.flex-center;
   gap: 0.25rem;
+
+  /* Mobile */
+  @media (max-width: 768px) {
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
 }
 
 .page-btn,
@@ -47,6 +70,12 @@
     opacity: 0.4;
     cursor: not-allowed;
   }
+
+  /* Mobile tap target */
+  @media (max-width: 768px) {
+    min-width: 36px;
+    height: 36px;
+  }
 }
 
 .page-btn {
@@ -62,6 +91,11 @@
   font-weight: 600;
 }
 
+/* Hide ellipsis on mobile to reduce clutter */
 .ellipsis {
   padding: 0 0.5rem;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 }

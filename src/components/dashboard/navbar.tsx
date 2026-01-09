@@ -1,10 +1,18 @@
 import "./navbar.scss";
 import { ASSETS } from "../../constants/assets";
+import { Menu } from "lucide-react";
 
-export default function DashboardNavbar() {
+export default function DashboardNavbar({
+  toggleSidebar,
+}: {
+  toggleSidebar: () => void;
+}) {
   return (
     <nav className="dashboard-navbar">
       <div className="navbar-left">
+        <button className="menu-btn" onClick={toggleSidebar}>
+          <Menu size={22} />
+        </button>
         <img src={ASSETS.logo} alt="Lendsqr logo" className="navbar-logo" />
         <div className="navbar-search">
           <input

@@ -12,11 +12,22 @@
   font-family: "Work Sans", sans-serif;
   overflow-y: auto;
 
-  /* Firefox */
+  @media (max-width: 1024px) {
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+    top: 70px;
+    min-height: calc(100vh - 70px);
+  }
+
+  &.open {
+    transform: translateX(0);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    z-index: 200;
+  }
+
   scrollbar-width: thin;
   scrollbar-color: #cfd6e4 transparent;
 
-  /* WebKit (Chrome, Edge, Safari) */
   &::-webkit-scrollbar {
     width: 4px;
   }
@@ -35,9 +46,9 @@
   }
 }
 
-
 .switch-org {
   @include mixins.flex-center;
+  justify-content: flex-start;
   gap: 10px;
   padding: 0 30px 30px;
   font-size: 16px;
@@ -54,6 +65,7 @@
 
 .logout-item {
   @include mixins.flex-center;
+  justify-content: flex-start;
   gap: 12px;
   padding: 12px 30px;
   font-size: 16px;
@@ -71,5 +83,5 @@
   margin-top: 20px;
   padding: 0 30px;
   font-size: 14px;
-  color: #213F7D;
+  color: #213f7d;
 }

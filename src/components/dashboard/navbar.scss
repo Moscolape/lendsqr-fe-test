@@ -13,8 +13,12 @@
   border-bottom: 1px solid #e5e9f2;
   font-family: "Work Sans", sans-serif;
   z-index: 1000;
-}
 
+  @media (max-width: 768px) {
+    height: 70px;
+    padding: 0 10px;
+  }
+}
 
 .navbar-left {
   @include mixins.flex-center;
@@ -100,4 +104,28 @@
   font-size: 14px;
   font-weight: 500;
   color: #213f7d;
+}
+
+.menu-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: none;
+}
+
+@media (max-width: 1024px) {
+  .navbar-search,
+  .docs-link,
+  .notification-btn {
+    display: none;
+  }
+
+  .menu-btn {
+    display: block;
+    margin-right: 16px;
+  }
+
+  .navbar-logo {
+    width: 120px;
+  }
 }

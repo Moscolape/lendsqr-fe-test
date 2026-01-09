@@ -1,15 +1,14 @@
-// user-details.tsx
 import React from "react";
 import DashboardWrapper from "../../components/dashboard/wrapper";
 
 import "./user-details.scss";
 import { ASSETS } from "../../constants/assets";
-import GeneralDetails from "../../components/user-details/tabs/general-details";
-import Documents from "../../components/user-details/tabs/documents";
-import BankDetails from "../../components/user-details/tabs/bank-details";
-import Loans from "../../components/user-details/tabs/loans";
-import Savings from "../../components/user-details/tabs/savings";
-import AppAndSystem from "../../components/user-details/tabs/app-system";
+import GeneralDetails from "../../components/user-details/tabs-sections/general-details";
+import Documents from "../../components/user-details/tabs-sections/documents";
+import BankDetails from "../../components/user-details/tabs-sections/bank-details";
+import Loans from "../../components/user-details/tabs-sections/loans";
+import Savings from "../../components/user-details/tabs-sections/savings";
+import AppAndSystem from "../../components/user-details/tabs-sections/app-system";
 
 const tabs = [
   "General Details",

@@ -43,6 +43,7 @@ export default function Login(): JSX.Element {
       </div>
 
       <div className="login-container">
+        <img src={ASSETS.logo} alt="Logo" className="logo" />
         <div className="login-form">
           <h1 className="login-header">Welcome!</h1>
           <p className="login-instruction">Enter details to login.</p>

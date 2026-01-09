@@ -12,15 +12,6 @@
   box-shadow: $shadow;
 }
 
-
-@mixin clearfix {
-  &::after {
-    content: "";
-    display: table;
-    clear: both;
-  }
-}
-
 @mixin button-styles($bg-color, $text-color) {
   background-color: $bg-color;
   color: $text-color;
