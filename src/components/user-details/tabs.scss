@@ -1,3 +1,5 @@
+@use "../../styles/mixins" as mixins;
+
 .tab-card {
   background: #fff;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.04);
@@ -86,8 +88,7 @@
 }
 
 .document-item {
-  display: flex;
-  align-items: center;
+  @include mixins.flex-center;
   justify-content: space-between;
   padding: 16px 0;
   border-top: 1px solid #e5e9f2;

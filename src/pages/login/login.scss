@@ -1,3 +1,5 @@
+@use "../../styles/mixins" as mixins;
+
 .login-page {
   display: flex;
   justify-content: space-between;
@@ -26,9 +28,9 @@
 .login-container {
   font-family: "Avenir Next", sans-serif;
   width: 48.889%;
-  display: flex;
+  @include mixins.flex-center;
+  align-items: normal;
   flex-direction: column;
-  justify-content: center;
   padding: 0 110px;
 }
 

@@ -15,22 +15,21 @@ https://www.figma.com/design/ZKILoCoIoy1IESdBpq3GNC/Lendsqr-Frontend-Engineering
 ## 📌 Pages Implemented
 
 - **Login Page**
-- **Dashboard**
 - **Users Page**
 - **User Details Page**
-  - General Details
+  - General Details (as per design)
   - Documents
   - Bank Details
   - Loans
   - Savings
-  - App & System (as per design)
+  - App & System
 
 
 ## 🔐 Authentication (Mock Login)
 
 Authentication is mocked to focus on UI, state management, and data flow.
 
-- Login with any of the following credentials:
+- Login with the following credentials:
   - **Email:** lendsqr@fetest.com
   - **Password:** lendelian001
 - No backend authentication is performed.

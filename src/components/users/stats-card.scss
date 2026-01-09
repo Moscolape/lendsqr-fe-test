@@ -1,3 +1,5 @@
+@use "../../styles/mixins" as mixins;
+
 .stats-cards {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -32,9 +34,7 @@
     width: 48px;
     height: 48px;
     border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    @include mixins.flex-center;
 
     &.purple {
       background: #DF18FF15;

@@ -1,10 +1,11 @@
+@use "../../styles/mixins" as mixins;
+
 .user-details-header {
   color: #213f7d;
 
   .back {
-    display: flex;
+    @include mixins.flex-center;
     width: fit-content;
-    align-items: center;
     gap: 8px;
     font-size: 16px;
     color: #545f7d;
@@ -14,9 +15,8 @@
   }
 
   .top {
-    display: flex;
+    @include mixins.flex-center;
     justify-content: space-between;
-    align-items: center;
     padding-bottom: 2rem;
 
     h1 {
@@ -65,15 +65,14 @@
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.04);
 
     .highlighted-info {
-      display: flex;
-      align-items: center;
+      @include mixins.flex-center;
+      justify-content: normal;
       gap: 22px;
       padding: 25px;
     }
 
     .profile {
-      display: flex;
-      align-items: center;
+      @include mixins.flex-center;
       gap: 16px;
 
       .avatar {
@@ -81,9 +80,7 @@
         height: 100px;
         border-radius: 50%;
         background: #dbe0ea;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        @include mixins.flex-center;
 
         img {
           width: 40px;

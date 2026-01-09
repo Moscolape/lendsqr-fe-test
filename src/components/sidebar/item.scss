@@ -1,6 +1,7 @@
+@use "../../styles/mixins" as mixins;
+
 .sidebar-item {
-  display: flex;
-  align-items: center;
+  @include mixins.flex-center;
   gap: 12px;
   padding: 12px 30px;
   font-size: 16px;

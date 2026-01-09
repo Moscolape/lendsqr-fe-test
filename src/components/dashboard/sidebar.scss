@@ -1,3 +1,5 @@
+@use "../../styles/mixins" as mixins;
+
 .dashboard-sidebar {
   position: fixed;
   top: 100px;
@@ -35,8 +37,7 @@
 
 
 .switch-org {
-  display: flex;
-  align-items: center;
+  @include mixins.flex-center;
   gap: 10px;
   padding: 0 30px 30px;
   font-size: 16px;
@@ -52,8 +53,7 @@
 }
 
 .logout-item {
-  display: flex;
-  align-items: center;
+  @include mixins.flex-center;
   gap: 12px;
   padding: 12px 30px;
   font-size: 16px;
