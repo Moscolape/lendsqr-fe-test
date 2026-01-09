@@ -1,74 +1,131 @@
-# React + TypeScript + Vite
+# Lendsqr Frontend Engineering Assessment
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is a frontend implementation of the Lendsqr Admin Console as part of the Frontend Engineering Assessment. The goal is to recreate selected pages from the provided Figma design with pixel-perfect accuracy, clean architecture, and best practices using React, TypeScript, and SCSS.
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🔗 Live Demo
 
-## React Compiler
+**👉 Deployed App:**  
+https://chukwunenye-moses-lendsqr-fe-test.netlify.app/
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+**👉 Figma Design:**  
+https://www.figma.com/design/ZKILoCoIoy1IESdBpq3GNC/Lendsqr-Frontend-Engineering-Assessment?node-id=5530-1427&t=KzVLw9Ps7hixDKIA-0
 
-## Expanding the ESLint configuration
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 📌 Pages Implemented
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- **Login Page**
+- **Dashboard**
+- **Users Page**
+- **User Details Page**
+  - General Details
+  - Documents
+  - Bank Details
+  - Loans
+  - Savings
+  - App & System (as per design)
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## 🔐 Authentication (Mock Login)
+
+Authentication is mocked to focus on UI, state management, and data flow.
+
+- Login with any of the following credentials:
+  - **Email:** lendsqr@fetest.com
+  - **Password:** lendelian001
+- No backend authentication is performed.
+- Successful login redirects to the dashboard.
+
+
+## 🧩 Data & Mock API
+
+User data is generated using [json-generator.com](https://json-generator.com) and served via [mocky.io](https://mocky.io).
+
+
+### Mock API Features
+- 500 user records
+- Realistic user data matching the Figma design
+- Includes:
+  - Personal details
+  - Education & employment
+  - Socials
+  - Bank information
+  - Guarantor details
+  - Tier rating
+
+
+### Storage Strategy
+- **Users list:** fetched from mock API
+- **User details:** stored and retrieved using localStorage for fast access and persistence across refreshes
+
+
+## 🛠️ Tech Stack
+
+| Technology        | Usage                          |
+|-------------------|--------------------------------|
+| React             | UI & component architecture    |
+| TypeScript        | Static typing & reliability    |
+| SCSS              | Styling (as required)          |
+| Vite              | Build tool                     |
+| React Router      | Client-side routing            |
+| Mocky.io          | Mock API hosting               |
+| json-generator.com| Mock data generation           |
+
+
+## 🎨 Styling & Design
+
+- 100% pixel-perfect implementation of the Figma design
+- SCSS used for:
+  - Modular styles
+  - Shared layout utilities
+  - Component-level styling
+- Fully responsive across desktop, tablet, and mobile breakpoints
+
+
+## 🧪 Testing
+
+Unit tests implemented for:
+- Positive scenarios
+- Negative/error states
+
+Focus on:
+- Component rendering
+- Data handling
+- Conditional UI states
+
+
+## 📁 Project Structure
+
+src/
+│── components/        # Reusable UI components
+│── pages/             # Page-level components
+│── services/          # API & data logic
+│── hooks/             # Custom React hooks
+│── types/             # TypeScript interfaces
+│── styles/            # SCSS files
+│── utils/             # Helpers & constants
+
+
+
+## 🚀 Getting Started Locally
+
+### 1. Clone the Repository
+```bash
+git clone https://github.com/Moscolape/lendsqr-fe-test.git
+cd lendsqr-fe-test
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### 2. Install Dependencies
+```bash
+npm install
 ```
-"# lendsqr-fe-test" 
+
+### 3. Start Development Server
+```bash
+npm run dev
+```
+
+### 4. App Will Be Available At
+```bash
+http://localhost:5173
+```
