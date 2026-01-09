@@ -1,0 +1,177 @@
+.user-details-header {
+  color: #213f7d;
+
+  .back {
+    display: flex;
+    width: fit-content;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+    color: #545f7d;
+    cursor: pointer;
+    text-decoration: none;
+    padding-bottom: 1rem;
+  }
+
+  .top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 2rem;
+
+    h1 {
+      font-size: 24px;
+      font-weight: 500;
+      color: #213f7d;
+    }
+
+    .actions {
+      display: flex;
+      gap: 12px;
+
+      button {
+        height: 40px;
+        width: 170px;
+        padding: 0 16px;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 600;
+        text-transform: uppercase;
+        cursor: pointer;
+      }
+
+      .danger {
+        border: 1px solid #e4033b;
+        background: transparent;
+        color: #e4033b;
+      }
+
+      .primary {
+        border: 1px solid #39cdcc;
+        background: transparent;
+        color: #39cdcc;
+      }
+    }
+  }
+
+  h2 {
+    margin: 20px 0;
+    font-size: 24px;
+  }
+
+  .card {
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.04);
+
+    .highlighted-info {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      padding: 25px;
+    }
+
+    .profile {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+
+      .avatar {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        background: #dbe0ea;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        img {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+        }
+      }
+
+      h3 {
+        margin: 0;
+        font-size: 22px;
+        font-weight: 500;
+      }
+
+      p {
+        margin: 7.6px 0 0;
+        font-size: 14px;
+        color: #545f7d;
+      }
+    }
+
+    .divider {
+      height: 80px;
+      width: 1px;
+      background: #545f7d2a;
+    }
+
+    .tier {
+      width: 73px;
+      height: 42px;
+
+      p {
+        font-size: 14px;
+        font-weight: 500;
+        margin-bottom: 8px;
+        color: #545f7d;
+      }
+    }
+
+    .finance {
+      width: 160px;
+      height: 49px;
+
+      h3 {
+        font-size: 22px;
+        margin: 0;
+      }
+
+      p {
+        margin-top: 6px;
+        font-size: 12px;
+      }
+    }
+  }
+
+  .tabs {
+    display: flex;
+    justify-content: space-between;
+    padding: 30.2px 26px 0px 26px;
+    border-bottom: 1px solid #e5e9f2;
+
+    button {
+      height: 29px;
+      width: 170px;
+      padding-bottom: 10px;
+      background: none;
+      border: none;
+      font-size: 16px;
+      font-family: "SF Compact Text", sans-serif;
+      color: #000000cc;
+      font-weight: 400;
+      cursor: pointer;
+      position: relative;
+
+      &.active {
+        color: #39cdcc;
+        font-family: "Work Sans", sans-serif;
+
+        &::after {
+          content: "";
+          position: absolute;
+          bottom: -1px;
+          left: 0;
+          right: 0;
+          height: 2px;
+          background: #39cdcc;
+        }
+      }
+    }
+  }
+}

@@ -1,9 +1,9 @@
 import React, { useRef } from "react";
 import "./filter-dropdown.scss";
 import { useClickOutside } from "../../../hooks/useClickOutside";
-import { filterConfig } from "../../../utils/filterConfig";
-import FilterField from "./filter-field";
-import FilterActions from "./filter-actions";
+import { filterConfig } from "../../../configs/filterConfig";
+import FilterField from "./ui/filter-field";
+import FilterActions from "./ui/filter-actions";
 
 export type FilterValues = {
   organization: string;

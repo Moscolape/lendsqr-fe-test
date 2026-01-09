@@ -1,5 +1,5 @@
-import { ASSETS } from "../../constants/assets";
-import StatsCards, { type StatItem } from "./stats-card";
+import { ASSETS } from "../../../constants/assets";
+import StatsCards, { type StatItem } from "../stats-card";
 
 const stats: StatItem[] = [
   {

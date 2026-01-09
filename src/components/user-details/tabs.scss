@@ -1,0 +1,119 @@
+.tab-card {
+  background: #fff;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.04);
+  margin-top: 30px;
+  padding: 30px;
+  border-radius: 4px;
+}
+
+.info-group {
+  padding: 30px 0;
+  border-bottom: 1px solid #e5e9f2;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  h4 {
+    font-size: 16px;
+    color: #213f7d;
+    margin-bottom: 24px;
+    font-weight: 500;
+  }
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 30px 20px;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  .label {
+    font-size: 12px;
+    text-transform: uppercase;
+    color: #545f7d;
+  }
+
+  .value {
+    font-size: 16px;
+    color: #545f7d;
+    font-weight: 500;
+  }
+}
+
+.simple-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 8px;
+
+  thead {
+    th {
+      text-align: left;
+      font-size: 12px;
+      text-transform: uppercase;
+      color: #545f7d;
+      font-weight: 500;
+      padding-bottom: 12px;
+    }
+  }
+
+  tbody {
+    tr {
+      border-top: 1px solid #e5e9f2;
+
+      &:first-child {
+        border-top: none;
+      }
+    }
+
+    td {
+      padding: 16px 0;
+      font-size: 16px;
+      color: #545f7d;
+      font-weight: 500;
+    }
+  }
+}
+
+.document-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.document-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 0;
+  border-top: 1px solid #e5e9f2;
+
+  &:first-child {
+    border-top: none;
+  }
+
+  .label {
+    font-size: 16px;
+    color: #545f7d;
+    font-weight: 500;
+  }
+}
+
+.doc-action {
+  background: transparent;
+  border: 1px solid #213f7d;
+  color: #213f7d;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 6px 14px;
+  border-radius: 4px;
+  cursor: pointer;
+
+  &:hover {
+    background: rgba(33, 63, 125, 0.05);
+  }
+}

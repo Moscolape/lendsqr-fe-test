@@ -1,9 +1,13 @@
-import { useState } from "react";
-import { ASSETS } from "../../constants/assets";
+import { useState, cloneElement, type ReactElement } from "react";
+import { ASSETS } from "../../../constants/assets";
+
+interface ClosableDropdownProps {
+  onClose: () => void;
+}
 
 interface HeaderCellProps {
   label: string;
-  children?: React.ReactNode;
+  children?: ReactElement<ClosableDropdownProps>;
 }
 
 const HeaderCell: React.FC<HeaderCellProps> = ({ label, children }) => {
@@ -13,15 +17,18 @@ const HeaderCell: React.FC<HeaderCellProps> = ({ label, children }) => {
   return (
     <th className="filterable">
       {label}
+
       <img
         src={ASSETS.filter}
         className="filter-icon"
         onClick={() => hasDropdown && setOpen((p) => !p)}
       />
 
-      {hasDropdown && open && (
+      {hasDropdown && open && children && (
         <div className="filter-dropdown-wrapper">
-          {children}
+          {cloneElement(children, {
+            onClose: () => setOpen(false),
+          })}
         </div>
       )}
     </th>

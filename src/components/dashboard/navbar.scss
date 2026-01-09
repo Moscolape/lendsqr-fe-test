@@ -73,6 +73,11 @@
   color: #213f7d;
   text-decoration: underline;
   font-family: "Roboto", sans-serif;
+
+  &:hover {
+    color: darken(#213f7d, 10%);
+    text-decoration: none;
+  }
 }
 
 .notification-btn {

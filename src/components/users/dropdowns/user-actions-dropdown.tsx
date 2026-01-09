@@ -1,13 +1,14 @@
 import React, { useRef } from "react";
 import "./user-actions-dropdown.scss";
 import { useClickOutside } from "../../../hooks/useClickOutside";
-import { userActions } from "../../../utils/actionsConfig";
-import ActionItem from "./user-actions";
+import { userActions } from "../../../configs/actionsConfig";
+import ActionItem from "./ui/user-actions";
 
+export type UserAction = "view" | "blacklist" | "activate";
 
 interface UserActionsDropdownProps {
   onClose: () => void;
-  onAction?: (action: string) => void;
+  onAction?: (action: UserAction) => void;
 }
 
 const UserActionsDropdown: React.FC<UserActionsDropdownProps> = ({

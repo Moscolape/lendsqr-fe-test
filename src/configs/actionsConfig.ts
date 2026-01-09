@@ -1,6 +1,12 @@
+import type { UserAction } from "../components/users/dropdowns/user-actions-dropdown";
 import { ASSETS } from "../constants/assets";
 
-export const userActions = [
+
+export const userActions: {
+  key: UserAction;
+  label: string;
+  icon: string;
+}[] = [
   {
     key: "view",
     label: "View Details",

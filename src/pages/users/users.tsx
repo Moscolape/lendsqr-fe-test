@@ -1,88 +1,17 @@
 import { useState } from "react";
+
 import DashboardWrapper from "../../components/dashboard/wrapper";
 import Pagination from "../../components/users/pagination";
-import UserStats from "../../components/users/user-stats";
-import UsersTable, { type UserRow } from "../../components/users/users-table";
+import UserStats from "../../components/users/ui/user-stats";
+import UsersTable from "../../components/users/users-table";
+
+import { users } from "../../utils/dummy-user-data";
+
 import "./users.scss";
 
 export default function Users() {
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(100);
-
-  const users: UserRow[] = [
-    {
-      id: 1,
-      organization: "Lendsqr",
-      username: "Adedeji",
-      email: "adedeji@lendsqr.com",
-      phoneNumber: "08078903721",
-      dateJoined: "May 15, 2020 10:00 AM",
-      status: "inactive",
-    },
-    {
-      id: 2,
-      organization: "Lendsqr",
-      username: "Adedeji",
-      email: "adedeji@lendsqr.com",
-      phoneNumber: "08078903721",
-      dateJoined: "May 15, 2020 10:00 AM",
-      status: "active",
-    },
-    {
-      id: 3,
-      organization: "Lendsqr",
-      username: "Adedeji",
-      email: "adedeji@lendsqr.com",
-      phoneNumber: "08078903721",
-      dateJoined: "May 15, 2020 10:00 AM",
-      status: "pending",
-    },
-    {
-      id: 4,
-      organization: "Lendsqr",
-      username: "Adedeji",
-      email: "adedeji@lendsqr.com",
-      phoneNumber: "08078903721",
-      dateJoined: "May 15, 2020 10:00 AM",
-      status: "blacklisted",
-    },
-    {
-      id: 5,
-      organization: "Lendsqr",
-      username: "Adedeji",
-      email: "adedeji@lendsqr.com",
-      phoneNumber: "08078903721",
-      dateJoined: "May 15, 2020 10:00 AM",
-      status: "inactive",
-    },
-    {
-      id: 6,
-      organization: "Lendsqr",
-      username: "Adedeji",
-      email: "adedeji@lendsqr.com",
-      phoneNumber: "08078903721",
-      dateJoined: "May 15, 2020 10:00 AM",
-      status: "active",
-    },
-    {
-      id: 7,
-      organization: "Lendsqr",
-      username: "Adedeji",
-      email: "adedeji@lendsqr.com",
-      phoneNumber: "08078903721",
-      dateJoined: "May 15, 2020 10:00 AM",
-      status: "pending",
-    },
-    {
-      id: 8,
-      organization: "Lendsqr",
-      username: "Adedeji",
-      email: "adedeji@lendsqr.com",
-      phoneNumber: "08078903721",
-      dateJoined: "May 15, 2020 10:00 AM",
-      status: "blacklisted",
-    },
-  ];
 
   return (
     <DashboardWrapper>

@@ -1,6 +1,6 @@
 import HeaderCell from "./users-table-header-cell";
-import FilterDropdown from "./dropdowns/filter-dropdown";
-import type { Filters } from "../../hooks/useUserFilters";
+import FilterDropdown from "../dropdowns/filter-dropdown";
+import type { Filters } from "../../../hooks/useUserFilters";
 
 interface Props {
   filters: Filters;

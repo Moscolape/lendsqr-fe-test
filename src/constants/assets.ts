@@ -35,6 +35,11 @@ import filter from "../assets/filter-results-button.svg";
 import viewUser from "../assets/np_view.svg";
 import activateUser from "../assets/np_user.svg";
 import blacklistUser from "../assets/np_delete-friend.svg";
+import arrowback from "../assets/arrowback.svg";
+import avatarIcon from "../assets/np_user_948637_000000 1.svg";
+import starFilled from "../assets/starfilled.svg";
+import starEmpty from "../assets/starempty.svg";
+
 
 export const ASSETS = {
   logo,
@@ -74,4 +79,8 @@ export const ASSETS = {
   viewUser,
   activateUser,
   blacklistUser,
+  arrowback,
+  avatarIcon,
+  starEmpty,
+    starFilled,
 };
