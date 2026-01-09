@@ -94,19 +94,6 @@ Focus on:
 - Conditional UI states
 
 
-## 📁 Project Structure
-
-src/
-│── components/        # Reusable UI components
-│── pages/             # Page-level components
-│── services/          # API & data logic
-│── hooks/             # Custom React hooks
-│── types/             # TypeScript interfaces
-│── styles/            # SCSS files
-│── utils/             # Helpers & constants
-
-
-
 ## 🚀 Getting Started Locally
 
 ### 1. Clone the Repository
