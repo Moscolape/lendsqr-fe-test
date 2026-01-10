@@ -1,6 +1,6 @@
 import React from "react";
 import ModalWrapper from "./modal-wrapper";
-import "./logout-modal.scss";
+import "./modal.scss";
 
 type LogoutModalProps = {
   isOpen: boolean;
@@ -17,16 +17,16 @@ const LogoutModal: React.FC<LogoutModalProps> = ({ isOpen, close }) => {
   return (
     <ModalWrapper isOpen={isOpen} close={close}>
       <div
-        className="logout-modal"
+        className="modal"
         onClick={(e) => e.stopPropagation()}
       >
-        <h2 className="logout-modal__title">Logging Out</h2>
+        <h2 className="modal__title">Logging Out</h2>
 
-        <p className="logout-modal__text">
+        <p className="modal__text">
           Are you sure you want to log out?
         </p>
 
-        <div className="logout-modal__actions">
+        <div className="modal__actions">
           <button
             className="btn btn--cancel"
             onClick={close}

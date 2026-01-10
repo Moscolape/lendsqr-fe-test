@@ -91,6 +91,48 @@
   @include mixins.flex-center;
   gap: 10px;
   cursor: pointer;
+  position: relative;
+
+  .rotate {
+    transform: rotate(180deg);
+    transition: transform 0.2s;
+  }
+
+  .user-dropdown {
+    position: absolute;
+    top: 60px;
+    right: 0;
+    width: 200px;
+    background: #ffffff;
+    border: 1px solid #e5e9f2;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    z-index: 1000;
+    @include mixins.fade-down-fast(0.3s, ease-in-out);
+
+    .dropdown-item {
+      padding: 12px 16px;
+      font-size: 14px;
+      font-family: "Work Sans", sans-serif;
+      text-align: left;
+      color: #213f7d;
+      background: none;
+      border: none;
+      width: 100%;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #f5f7fa;
+      }
+    }
+  }
+}
+
+.mobile-only {
+  display: none;
+  flex-direction: column;
 }
 
 .user-avatar {
@@ -127,5 +169,9 @@
 
   .navbar-logo {
     width: 120px;
+  }
+
+  .user-profile .user-dropdown .mobile-only {
+    display: flex;
   }
 }

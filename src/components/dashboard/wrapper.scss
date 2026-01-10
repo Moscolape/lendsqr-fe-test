@@ -28,4 +28,33 @@
     min-width: 100%;
     padding: 20px;
   }
+
+  .dashboard-wrapper::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(2px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+    z-index: 9;
+  }
+
+  .dashboard-sidebar.open ~ .dashboard-main-content {
+    pointer-events: none;
+  }
+
+  .dashboard-sidebar.open + .dashboard-main-content {
+    pointer-events: none;
+  }
+
+  .dashboard-sidebar.open {
+    z-index: 10;
+  }
+
+  .dashboard-wrapper:has(.dashboard-sidebar.open)::after {
+    opacity: 1;
+    pointer-events: all;
+  }
 }

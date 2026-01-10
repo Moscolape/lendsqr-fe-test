@@ -6,7 +6,7 @@ import "./users-table.scss";
 type UserStatus = "active" | "inactive" | "pending" | "blacklisted";
 
 export interface UserRow {
-  id: number;
+  id: string;
   organization: string;
   username: string;
   email: string;

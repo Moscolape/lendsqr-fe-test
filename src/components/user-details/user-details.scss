@@ -124,14 +124,16 @@
       width: 160px;
       height: 49px;
 
-      h3 {
+      p {
         font-size: 22px;
+        font-weight: 500;
         margin: 0;
       }
-
-      p {
+      
+      span {
         margin-top: 6px;
         font-size: 12px;
+        font-weight: 400;
       }
     }
   }
@@ -277,6 +279,7 @@
     /* Tabs: horizontal scroll */
     .tabs {
       overflow-x: auto;
+      overflow-y: hidden;
       white-space: nowrap;
       padding: 16px 12px 0;
       gap: 20px;

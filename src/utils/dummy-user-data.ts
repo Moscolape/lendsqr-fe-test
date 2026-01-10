@@ -2,7 +2,7 @@ import type { UserRow } from "../components/users/users-table";
 
 export   const users: UserRow[] = [
     {
-      id: 1,
+      id: '1',
       organization: "Lendsqr",
       username: "Adedeji",
       email: "adedeji@lendsqr.com",
@@ -11,7 +11,7 @@ export   const users: UserRow[] = [
       status: "inactive",
     },
     {
-      id: 2,
+      id: '2',
       organization: "Lendsqr",
       username: "Adedeji",
       email: "adedeji@lendsqr.com",
@@ -20,7 +20,7 @@ export   const users: UserRow[] = [
       status: "active",
     },
     {
-      id: 3,
+      id: '3',
       organization: "Lendsqr",
       username: "Adedeji",
       email: "adedeji@lendsqr.com",
@@ -29,7 +29,7 @@ export   const users: UserRow[] = [
       status: "pending",
     },
     {
-      id: 4,
+      id: '4',
       organization: "Lendsqr",
       username: "Adedeji",
       email: "adedeji@lendsqr.com",
@@ -38,7 +38,7 @@ export   const users: UserRow[] = [
       status: "blacklisted",
     },
     {
-      id: 5,
+      id: '5',
       organization: "Lendsqr",
       username: "Adedeji",
       email: "adedeji@lendsqr.com",
@@ -47,7 +47,7 @@ export   const users: UserRow[] = [
       status: "inactive",
     },
     {
-      id: 6,
+      id: '6',
       organization: "Lendsqr",
       username: "Adedeji",
       email: "adedeji@lendsqr.com",
@@ -56,7 +56,7 @@ export   const users: UserRow[] = [
       status: "active",
     },
     {
-      id: 7,
+      id: '7',
       organization: "Lendsqr",
       username: "Adedeji",
       email: "adedeji@lendsqr.com",
@@ -65,7 +65,7 @@ export   const users: UserRow[] = [
       status: "pending",
     },
     {
-      id: 8,
+      id: '8',
       organization: "Lendsqr",
       username: "Adedeji",
       email: "adedeji@lendsqr.com",

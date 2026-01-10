@@ -85,3 +85,62 @@
   font-size: 14px;
   color: #213f7d;
 }
+
+.switch-org-wrapper {
+  position: relative;
+}
+
+.switch-org {
+  @include mixins.flex-center;
+  justify-content: flex-start;
+  gap: 10px;
+  padding: 0 30px 30px;
+  font-size: 16px;
+  font-weight: 400;
+  color: #213f7d;
+  cursor: pointer;
+
+  svg {
+    transition: transform 0.2s ease;
+  }
+
+  .rotate {
+    transform: rotate(180deg);
+  }
+}
+
+.org-dropdown {
+  position: absolute;
+  top: 45px;
+  left: 30px;
+  width: calc(100% - 60px);
+  background: #ffffff;
+  border: 1px solid #e5e9f2;
+  border-radius: 4px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  z-index: 300;
+  overflow: hidden;
+  @include mixins.fade-down-fast(0.3s, ease-in-out);
+}
+
+.org-item {
+  width: 100%;
+  padding: 12px 14px;
+  background: transparent;
+  border: none;
+  text-align: left;
+  font-size: 14px;
+  font-family: "Work Sans", sans-serif;
+  color: #213f7d;
+  cursor: pointer;
+  transition: background 0.2s ease;
+
+  &:hover {
+    background: #f5f7fa;
+  }
+
+  &.active {
+    background: #edf2ff;
+    font-weight: 500;
+  }
+}

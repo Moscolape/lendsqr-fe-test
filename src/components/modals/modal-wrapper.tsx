@@ -1,4 +1,6 @@
 import type { ReactNode } from "react";
+import { createPortal } from "react-dom";
+
 import "./modal-wrapper.scss";
 
 type ModalWrapperProps = {
@@ -14,10 +16,11 @@ const ModalWrapper: React.FC<ModalWrapperProps> = ({
 }) => {
   if (!isOpen) return null;
 
-  return (
+  return createPortal(
     <div className="modal-backdrop" onClick={close}>
       {children}
-    </div>
+    </div>,
+    document.body
   );
 };
 

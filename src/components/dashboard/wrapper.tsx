@@ -10,7 +10,7 @@ export default function DashboardWrapper({ children }: { children: React.ReactNo
     <div className="dashboard-wrapper">
       <DashboardNavbar toggleSidebar={() => setSidebarOpen(prev => !prev)}/>
       <div className="main">
-        <DashboardSidebar open={sidebarOpen}/>
+        <DashboardSidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)}/>
         <main className="dashboard-main-content">{children}</main>
       </div>
     </div>

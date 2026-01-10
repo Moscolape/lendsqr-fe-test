@@ -1,12 +1,21 @@
+import { useRef, useState } from "react";
 import "./navbar.scss";
 import { ASSETS } from "../../constants/assets";
 import { Menu } from "lucide-react";
+import { useClickOutside } from "../../hooks/useClickOutside";
 
 export default function DashboardNavbar({
   toggleSidebar,
 }: {
   toggleSidebar: () => void;
 }) {
+  const [userDropdownOpen, setUserDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useClickOutside(dropdownRef, () => {
+    if (userDropdownOpen) setUserDropdownOpen(false);
+  });
+
   return (
     <nav className="dashboard-navbar">
       <div className="navbar-left">
@@ -35,10 +44,26 @@ export default function DashboardNavbar({
           <img src={ASSETS.notification} alt="bell-icon" />
         </button>
 
-        <div className="user-profile">
+        <div
+          className="user-profile"
+          ref={dropdownRef}
+          onClick={() => setUserDropdownOpen((prev) => !prev)}
+        >
           <img src={ASSETS.avatar} alt="User avatar" className="user-avatar" />
           <span className="username">Adedeji</span>
-          <img src={ASSETS.chevronDown} alt="chevron-down-icon" />
+          <img src={ASSETS.chevronDown} alt="chevron-down-icon" className={userDropdownOpen ? "rotate" : ""} />
+
+          {userDropdownOpen && (
+            <div className="user-dropdown">
+              <button className="dropdown-item">Profile</button>
+              <button className="dropdown-item">Settings</button>
+
+              <div className="mobile-only">
+                <a href="#" className="dropdown-item">Docs</a>
+                <button className="dropdown-item">Notifications</button>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </nav>

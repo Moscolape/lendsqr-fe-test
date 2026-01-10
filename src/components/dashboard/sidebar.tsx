@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import SidebarItem from "../sidebar/item";
 import SidebarSection from "../sidebar/section";
 
@@ -7,17 +7,63 @@ import "./sidebar.scss";
 import { ASSETS } from "../../constants/assets";
 import { ChevronDown } from "lucide-react";
 import LogoutModal from "../modals/logout-modal";
+import { useClickOutside } from "../../hooks/useClickOutside";
 
-export default function DashboardSidebar({ open }: { open: boolean }) {
+export default function DashboardSidebar({
+  open,
+  onClose,
+}: {
+  open: boolean;
+  onClose: () => void;
+}) {
   const [logoutOpen, setLogoutOpen] = useState(false);
+  const [orgOpen, setOrgOpen] = useState(false);
+
+  const [selectedOrg, setSelectedOrg] = useState("Lendsqr");
+
+  const sidebarRef = useRef<HTMLElement>(null);
+  const orgRef = useRef<HTMLDivElement>(null);
+
+  useClickOutside(sidebarRef, () => {
+    if (open) onClose();
+  });
+
+  useClickOutside(orgRef, () => {
+    if (orgOpen) setOrgOpen(false);
+  });
 
   return (
     <>
-      <aside className={`dashboard-sidebar ${open ? "open" : ""}`}>
-        <div className="switch-org">
-          <img src={ASSETS.organization1} alt="organization-icon" />
-          <span>Switch Organization</span>
-          <ChevronDown size={14} />
+      <aside
+        ref={sidebarRef}
+        className={`dashboard-sidebar ${open ? "open" : ""}`}
+      >
+        <div ref={orgRef} className="switch-org-wrapper">
+          <div
+            className="switch-org"
+            onClick={() => setOrgOpen((prev) => !prev)}
+          >
+            <img src={ASSETS.organization1} alt="organization-icon" />
+            <span>{selectedOrg}</span>
+            <ChevronDown size={14} className={orgOpen ? "rotate" : ""} />
+          </div>
+
+          {orgOpen && (
+            <div className="org-dropdown">
+              {["Lendsqr", "Lendstar", "Lenderian"].map((org) => (
+                <button
+                  key={org}
+                  className={`org-item ${selectedOrg === org ? "active" : ""}`}
+                  onClick={() => {
+                    setSelectedOrg(org);
+                    setOrgOpen(false);
+                  }}
+                >
+                  {org}
+                </button>
+              ))}
+            </div>
+          )}
         </div>
 
         <SidebarItem
@@ -120,10 +166,7 @@ export default function DashboardSidebar({ open }: { open: boolean }) {
         </SidebarSection>
 
         <section className="logout-section">
-          <div
-            className="logout-item"
-            onClick={() => setLogoutOpen(true)}
-          >
+          <div className="logout-item" onClick={() => setLogoutOpen(true)}>
             <img src={ASSETS.logout} alt="logout-icon" />
             <span>Logout</span>
           </div>
@@ -131,10 +174,7 @@ export default function DashboardSidebar({ open }: { open: boolean }) {
         </section>
       </aside>
 
-      <LogoutModal
-        isOpen={logoutOpen}
-        close={() => setLogoutOpen(false)}
-      />
+      <LogoutModal isOpen={logoutOpen} close={() => setLogoutOpen(false)} />
     </>
   );
 }

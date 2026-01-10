@@ -1,16 +1,17 @@
-.logout-modal {
+@use "../../styles/mixins" as anim;
+
+.modal {
   background-color: #ffffff;
   border-radius: 0.5rem;
   padding: 1.5rem 1rem;
   width: 90%;
   max-width: 400px;
   box-shadow: 0 20px 25px rgba(0, 0, 0, 0.15);
-  animation: fadeDownFast 0.2s ease-out;
+  @include anim.fade-down-fast(0.3s, ease-in-out); 
 
   &__title {
     text-align: center;
     font-weight: 700;
-    font-size: 1.125rem;
     color: #374151;
   }
 
@@ -56,22 +57,20 @@
       background-color: #b91c1c;
     }
   }
-}
 
-/* Animation */
-@keyframes fadeDownFast {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+  &--proceed {
+    background-color: #39cdcc;
+    color: #ffffff;
+    border: none;
+
+    &:hover {
+      background-color: darken(#39cdcc, 5%);
+    }
   }
 }
 
 @media (max-width: 480px) {
-  .logout-modal {
+  .modal {
     width: 92%;
     max-width: 340px;
     padding: 1.25rem 0.875rem;
@@ -93,7 +92,7 @@
 }
 
 @media (max-width: 768px) {
-  .logout-modal {
+  .modal {
     width: 90%;
     max-width: 380px;
   }
