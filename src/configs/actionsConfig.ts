@@ -1,7 +1,6 @@
 import type { UserAction } from "../components/users/dropdowns/user-actions-dropdown";
 import { ASSETS } from "../constants/assets";
 
-
 export const userActions: {
   key: UserAction;
   label: string;

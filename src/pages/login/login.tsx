@@ -48,7 +48,7 @@ export default function Login(): JSX.Element {
           <h1 className="login-header">Welcome!</h1>
           <p className="login-instruction">Enter details to login.</p>
 
-        {error && <span className="error">{error}</span>}
+          {error && <span className="error">{error}</span>}
 
           <form className="login-form-fields" onSubmit={handleSubmit}>
             <div className="form-group">

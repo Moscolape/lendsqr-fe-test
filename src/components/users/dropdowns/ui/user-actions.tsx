@@ -4,11 +4,7 @@ interface ActionItemProps {
   onClick?: () => void;
 }
 
-const ActionItem: React.FC<ActionItemProps> = ({
-  icon,
-  label,
-  onClick,
-}) => {
+const ActionItem: React.FC<ActionItemProps> = ({ icon, label, onClick }) => {
   return (
     <button className="dropdown-item" onClick={onClick}>
       <img src={icon} alt={label} />

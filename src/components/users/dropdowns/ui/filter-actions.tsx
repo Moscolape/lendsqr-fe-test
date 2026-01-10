@@ -3,10 +3,7 @@ interface FilterActionsProps {
   onFilter: () => void;
 }
 
-const FilterActions: React.FC<FilterActionsProps> = ({
-  onReset,
-  onFilter,
-}) => {
+const FilterActions: React.FC<FilterActionsProps> = ({ onReset, onFilter }) => {
   return (
     <div className="actions">
       <button className="reset" onClick={onReset}>

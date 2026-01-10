@@ -1,4 +1,4 @@
-import "./item.scss"
+import "./item.scss";
 
 interface SidebarItemProps {
   icon: React.ReactNode;

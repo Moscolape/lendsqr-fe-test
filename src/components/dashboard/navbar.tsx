@@ -51,7 +51,11 @@ export default function DashboardNavbar({
         >
           <img src={ASSETS.avatar} alt="User avatar" className="user-avatar" />
           <span className="username">Adedeji</span>
-          <img src={ASSETS.chevronDown} alt="chevron-down-icon" className={userDropdownOpen ? "rotate" : ""} />
+          <img
+            src={ASSETS.chevronDown}
+            alt="chevron-down-icon"
+            className={userDropdownOpen ? "rotate" : ""}
+          />
 
           {userDropdownOpen && (
             <div className="user-dropdown">
@@ -59,7 +63,9 @@ export default function DashboardNavbar({
               <button className="dropdown-item">Settings</button>
 
               <div className="mobile-only">
-                <a href="#" className="dropdown-item">Docs</a>
+                <a href="#" className="dropdown-item">
+                  Docs
+                </a>
                 <button className="dropdown-item">Notifications</button>
               </div>
             </div>

@@ -40,7 +40,6 @@ import avatarIcon from "../assets/np_user_948637_000000 1.svg";
 import starFilled from "../assets/starfilled.svg";
 import starEmpty from "../assets/starempty.svg";
 
-
 export const ASSETS = {
   logo,
   pabloLogin,
@@ -82,5 +81,5 @@ export const ASSETS = {
   arrowback,
   avatarIcon,
   starEmpty,
-    starFilled,
+  starFilled,
 };

@@ -16,28 +16,17 @@ const LogoutModal: React.FC<LogoutModalProps> = ({ isOpen, close }) => {
 
   return (
     <ModalWrapper isOpen={isOpen} close={close}>
-      <div
-        className="modal"
-        onClick={(e) => e.stopPropagation()}
-      >
+      <div className="modal" onClick={(e) => e.stopPropagation()}>
         <h2 className="modal__title">Logging Out</h2>
 
-        <p className="modal__text">
-          Are you sure you want to log out?
-        </p>
+        <p className="modal__text">Are you sure you want to log out?</p>
 
         <div className="modal__actions">
-          <button
-            className="btn btn--cancel"
-            onClick={close}
-          >
+          <button className="btn btn--cancel" onClick={close}>
             No
           </button>
 
-          <button
-            className="btn btn--danger"
-            onClick={handleLogout}
-          >
+          <button className="btn btn--danger" onClick={handleLogout}>
             Yes
           </button>
         </div>

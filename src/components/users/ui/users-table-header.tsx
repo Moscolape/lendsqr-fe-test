@@ -8,11 +8,7 @@ interface Props {
   onReset: () => void;
 }
 
-const UsersTableHeader: React.FC<Props> = ({
-  filters,
-  onChange,
-  onReset,
-}) => {
+const UsersTableHeader: React.FC<Props> = ({ filters, onChange, onReset }) => {
   return (
     <thead>
       <tr>

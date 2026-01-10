@@ -18,9 +18,7 @@ const StatsCards: React.FC<StatsCardsProps> = ({ stats }) => {
     <div className="stats-cards">
       {stats.map((item) => (
         <div key={item.id} className="stats-card">
-          <div className={`icon ${item.variant ?? "purple"}`}>
-            {item.icon}
-          </div>
+          <div className={`icon ${item.variant ?? "purple"}`}>{item.icon}</div>
 
           <div className="content">
             <p className="label">{item.label}</p>

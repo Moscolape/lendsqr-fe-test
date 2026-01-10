@@ -2,7 +2,7 @@
 @use "../../styles/variables" as vars;
 
 .login-page {
-  min-height: 90vh;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -117,8 +117,10 @@
 
 .error {
   width: 100%;
+  display: block;
   color: vars.$secondary-bg-color;
   font-size: 14px;
+  font-family: "Avenir Next", sans-serif;
   text-align: center;
   font-weight: 500;
   margin-bottom: 16px;
@@ -126,7 +128,6 @@
   padding: 12px;
   border-radius: 5px;
 }
-
 
 @media (min-width: 768px) {
   .login-container {

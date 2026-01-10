@@ -6,7 +6,6 @@ import "./user-details.scss";
 import BlacklistUserModal from "../modals/blacklist-modal";
 import ActivateUserModal from "../modals/activate-modal";
 
-
 interface Props {
   activeTab: string;
   onTabChange: (tab: string) => void;
@@ -48,7 +47,11 @@ const UserFinance: React.FC = () => (
   </div>
 );
 
-const UserDetailsHeader: React.FC<Props> = ({ activeTab, onTabChange, userId }) => {
+const UserDetailsHeader: React.FC<Props> = ({
+  activeTab,
+  onTabChange,
+  userId,
+}) => {
   const [blacklistModalOpen, setBlacklistModalOpen] = useState(false);
   const [activateModalOpen, setActivateModalOpen] = useState(false);
 
@@ -64,8 +67,18 @@ const UserDetailsHeader: React.FC<Props> = ({ activeTab, onTabChange, userId }) 
         <h1>User Details</h1>
 
         <div className="actions">
-          <button className="danger" onClick={() => setBlacklistModalOpen(true)}>Blacklist User</button>
-          <button className="primary" onClick={() => setActivateModalOpen(true)}>Activate User</button>
+          <button
+            className="danger"
+            onClick={() => setBlacklistModalOpen(true)}
+          >
+            Blacklist User
+          </button>
+          <button
+            className="primary"
+            onClick={() => setActivateModalOpen(true)}
+          >
+            Activate User
+          </button>
         </div>
       </div>
 

@@ -1,4 +1,4 @@
-import "./section.scss"
+import "./section.scss";
 
 export default function SidebarSection({
   title,

@@ -1,3 +1,5 @@
+@use "../../styles/variables" as vars;
+
 .sidebar-section {
   margin-top: 20px;
 }
@@ -5,7 +7,7 @@
 .section-title {
   font-size: 12px;
   font-weight: 500;
-  color: #545f7d;
+  color: vars.$primary-text-color;
   padding: 10px 30px;
   text-transform: uppercase;
 }
