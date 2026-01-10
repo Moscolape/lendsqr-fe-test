@@ -1,9 +1,9 @@
 import { useState } from "react";
 
-import DashboardWrapper from "../../components/dashboard/wrapper";
-import Pagination from "../../components/users/pagination";
+import DashboardWrapper from "../../components/dashboard/wrapper/wrapper";
+import Pagination from "../../components/users/pagination/pagination";
 import UserStats from "../../components/users/ui/user-stats";
-import UsersTable from "../../components/users/users-table";
+import UsersTable from "../../components/users/table/users-table";
 
 import { users } from "../../utils/dummy-user-data";
 

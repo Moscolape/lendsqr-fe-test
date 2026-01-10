@@ -1,5 +1,5 @@
 import React from "react";
-import DashboardWrapper from "../../components/dashboard/wrapper";
+import DashboardWrapper from "../../components/dashboard/wrapper/wrapper";
 
 import UserDetailsHeader from "../../components/user-details/user-details-headers";
 import UserDetailsTabContent from "../../components/user-details/user-details-tab-content";

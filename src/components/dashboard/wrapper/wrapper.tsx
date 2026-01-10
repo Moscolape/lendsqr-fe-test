@@ -1,6 +1,6 @@
-import { useState } from "react";
-import DashboardNavbar from "./navbar";
-import DashboardSidebar from "./sidebar";
+import { useRef, useState } from "react";
+import DashboardNavbar from "../navbar/navbar";
+import DashboardSidebar from "../sidebar/sidebar";
 import "./wrapper.scss";
 
 export default function DashboardWrapper({
@@ -9,15 +9,22 @@ export default function DashboardWrapper({
   children: React.ReactNode;
 }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const menuBtnRef = useRef<HTMLButtonElement | null>(null);
 
   return (
     <div className="dashboard-wrapper">
-      <DashboardNavbar toggleSidebar={() => setSidebarOpen((prev) => !prev)} />
+      <DashboardNavbar
+        toggleSidebar={() => setSidebarOpen((prev) => !prev)}
+        menuBtnRef={menuBtnRef}
+      />
+
       <div className="main">
         <DashboardSidebar
           open={sidebarOpen}
           onClose={() => setSidebarOpen(false)}
+          menuBtnRef={menuBtnRef}
         />
+
         <main className="dashboard-main-content">{children}</main>
       </div>
     </div>

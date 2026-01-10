@@ -1,6 +1,6 @@
-import { useUserFilters } from "../../hooks/useUserFilters";
-import UserRowItem from "./ui/user-row";
-import UsersTableHeader from "./ui/users-table-header";
+import { useUserFilters } from "../../../hooks/useUserFilters";
+import UserRowItem from "../ui/user-row";
+import UsersTableHeader from "../ui/users-table-header";
 import "./users-table.scss";
 
 type UserStatus = "active" | "inactive" | "pending" | "blacklisted";

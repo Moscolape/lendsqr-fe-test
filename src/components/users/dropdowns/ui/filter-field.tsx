@@ -15,12 +15,18 @@ const FilterField: React.FC<FilterFieldProps> = ({
   options,
   placeholder,
 }) => {
+  const inputId = `filter-field-${label.replace(/\s+/g, "-").toLowerCase()}`;
+
   return (
     <div className="field">
-      <label>{label}</label>
+      <label htmlFor={inputId}>{label}</label>
 
       {options ? (
-        <select value={value} onChange={(e) => onChange(e.target.value)}>
+        <select
+          id={inputId}
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+        >
           <option value="">Select</option>
           {options.map((opt) => (
             <option key={opt.value} value={opt.value}>
@@ -30,6 +36,7 @@ const FilterField: React.FC<FilterFieldProps> = ({
         </select>
       ) : (
         <input
+          id={inputId}
           type={type}
           placeholder={placeholder}
           value={value}

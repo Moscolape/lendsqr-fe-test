@@ -1,20 +1,22 @@
 import { useRef, useState } from "react";
-import SidebarItem from "../sidebar/item";
-import SidebarSection from "../sidebar/section";
+import SidebarItem from "../../sidebar/item/item";
+import SidebarSection from "../../sidebar/section/section";
 
 import "./sidebar.scss";
 
-import { ASSETS } from "../../constants/assets";
+import { ASSETS } from "../../../constants/assets";
 import { ChevronDown } from "lucide-react";
-import LogoutModal from "../modals/logout-modal";
-import { useClickOutside } from "../../hooks/useClickOutside";
+import LogoutModal from "../../modals/logout-modal";
+import { useClickOutside } from "../../../hooks/useClickOutside";
 
 export default function DashboardSidebar({
   open,
   onClose,
+  menuBtnRef,
 }: {
   open: boolean;
   onClose: () => void;
+  menuBtnRef: React.RefObject<HTMLButtonElement | null>;
 }) {
   const [logoutOpen, setLogoutOpen] = useState(false);
   const [orgOpen, setOrgOpen] = useState(false);
@@ -24,9 +26,13 @@ export default function DashboardSidebar({
   const sidebarRef = useRef<HTMLElement>(null);
   const orgRef = useRef<HTMLDivElement>(null);
 
-  useClickOutside(sidebarRef, () => {
-    if (open) onClose();
-  });
+  useClickOutside(
+    sidebarRef,
+    () => {
+      if (open) onClose();
+    },
+    [menuBtnRef]
+  );
 
   useClickOutside(orgRef, () => {
     if (orgOpen) setOrgOpen(false);
@@ -50,7 +56,7 @@ export default function DashboardSidebar({
 
           {orgOpen && (
             <div className="org-dropdown">
-              {["Lendsqr", "Lendstar", "Lenderian"].map((org) => (
+              {["Switch Organization", "Lendsqr", "Lendstar", "Lenderian"].map((org) => (
                 <button
                   key={org}
                   className={`org-item ${selectedOrg === org ? "active" : ""}`}

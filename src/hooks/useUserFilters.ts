@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import type { UserRow } from "../components/users/users-table";
+import type { UserRow } from "../components/users/table/users-table";
 
 export type Filters = {
   organization: string;

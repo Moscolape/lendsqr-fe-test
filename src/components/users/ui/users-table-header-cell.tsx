@@ -1,8 +1,9 @@
-import { useState, cloneElement, type ReactElement } from "react";
+import { useRef, useState, cloneElement, type ReactElement } from "react";
 import { ASSETS } from "../../../constants/assets";
 
 interface ClosableDropdownProps {
   onClose: () => void;
+  triggerRef?: React.RefObject<HTMLImageElement | null>;
 }
 
 interface HeaderCellProps {
@@ -12,6 +13,7 @@ interface HeaderCellProps {
 
 const HeaderCell: React.FC<HeaderCellProps> = ({ label, children }) => {
   const [open, setOpen] = useState(false);
+  const triggerRef = useRef<HTMLImageElement>(null);
   const hasDropdown = Boolean(children);
 
   return (
@@ -19,6 +21,7 @@ const HeaderCell: React.FC<HeaderCellProps> = ({ label, children }) => {
       {label}
 
       <img
+        ref={triggerRef}
         src={ASSETS.filter}
         className="filter-icon"
         onClick={() => hasDropdown && setOpen((p) => !p)}
@@ -28,6 +31,7 @@ const HeaderCell: React.FC<HeaderCellProps> = ({ label, children }) => {
         <div className="filter-dropdown-wrapper">
           {cloneElement(children, {
             onClose: () => setOpen(false),
+            triggerRef,
           })}
         </div>
       )}

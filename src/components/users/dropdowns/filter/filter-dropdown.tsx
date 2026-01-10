@@ -1,9 +1,9 @@
 import React, { useRef } from "react";
 import "./filter-dropdown.scss";
-import { useClickOutside } from "../../../hooks/useClickOutside";
-import { filterConfig } from "../../../configs/filterConfig";
-import FilterField from "./ui/filter-field";
-import FilterActions from "./ui/filter-actions";
+import { useClickOutside } from "../../../../hooks/useClickOutside";
+import { filterConfig } from "../../../../configs/filterConfig";
+import FilterField from "../ui/filter-field";
+import FilterActions from "../ui/filter-actions";
 
 export type FilterValues = {
   organization: string;
@@ -20,6 +20,7 @@ interface FilterDropdownProps {
   onReset: () => void;
   onFilter: () => void;
   onClose: () => void;
+  triggerRef?: React.RefObject<HTMLImageElement | null>;
 }
 
 const FilterDropdown: React.FC<FilterDropdownProps> = ({
@@ -28,10 +29,11 @@ const FilterDropdown: React.FC<FilterDropdownProps> = ({
   onReset,
   onFilter,
   onClose,
+  triggerRef
 }) => {
   const ref = useRef<HTMLDivElement>(null);
 
-  useClickOutside(ref, onClose);
+  useClickOutside(ref, onClose, triggerRef ? [triggerRef] : []);
 
   return (
     <div className="filter-dropdown" ref={ref}>

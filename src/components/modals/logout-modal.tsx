@@ -1,5 +1,5 @@
 import React from "react";
-import ModalWrapper from "./modal-wrapper";
+import ModalWrapper from "./wrapper/modal-wrapper";
 import "./modal.scss";
 
 type LogoutModalProps = {

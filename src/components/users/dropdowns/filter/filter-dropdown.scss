@@ -8,6 +8,7 @@
   border: 1px solid #e5e9f2;
   border-radius: 8px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  @include mixins.fade-down-fast(0.3s, ease-in-out);
 
   @include mixins.flex-center;
   flex-direction: column;

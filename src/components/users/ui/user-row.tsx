@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { MoreVertical } from "lucide-react";
-import UserActionsDropdown from "../dropdowns/user-actions-dropdown";
-import { type UserRow } from "../users-table";
+import UserActionsDropdown from "../dropdowns/user-actions/user-actions-dropdown";
+import { type UserRow } from "../table/users-table";
 import BlacklistUserModal from "../../modals/blacklist-modal";
 import ActivateUserModal from "../../modals/activate-modal";
 
@@ -18,6 +18,7 @@ const UserRowItem: React.FC<Props> = ({ user, isLast }) => {
   const [activateModalOpen, setActivateModalOpen] = useState(false);
 
   const navigate = useNavigate();
+  const kebabBtnRef = useRef<HTMLButtonElement | null>(null);
 
   const handleAction = (action: string) => {
     switch (action) {
@@ -53,7 +54,12 @@ const UserRowItem: React.FC<Props> = ({ user, isLast }) => {
         </td>
 
         <td className="actions">
-          <button className="kebab-btn" onClick={() => setOpen(!open)}>
+          <button
+            ref={kebabBtnRef}
+            className="kebab-btn"
+            aria-label="More actions"
+            onClick={() => setOpen(!open)}
+          >
             <MoreVertical size={20} />
           </button>
 
@@ -61,6 +67,7 @@ const UserRowItem: React.FC<Props> = ({ user, isLast }) => {
             <UserActionsDropdown
               onAction={handleAction}
               onClose={() => setOpen(false)}
+              triggerRef={kebabBtnRef}
             />
           )}
         </td>

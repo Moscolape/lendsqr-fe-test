@@ -1,14 +1,17 @@
 import { useRef, useState } from "react";
 import "./navbar.scss";
-import { ASSETS } from "../../constants/assets";
+import { ASSETS } from "../../../constants/assets";
 import { Menu } from "lucide-react";
-import { useClickOutside } from "../../hooks/useClickOutside";
+import { useClickOutside } from "../../../hooks/useClickOutside";
 
 export default function DashboardNavbar({
   toggleSidebar,
+  menuBtnRef,
 }: {
   toggleSidebar: () => void;
+  menuBtnRef: React.RefObject<HTMLButtonElement | null>;
 }) {
+
   const [userDropdownOpen, setUserDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -19,7 +22,7 @@ export default function DashboardNavbar({
   return (
     <nav className="dashboard-navbar">
       <div className="navbar-left">
-        <button className="menu-btn" onClick={toggleSidebar}>
+        <button ref={menuBtnRef} className="menu-btn" onClick={toggleSidebar} aria-label="Menu">
           <Menu size={22} />
         </button>
         <img src={ASSETS.logo} alt="Lendsqr logo" className="navbar-logo" />
