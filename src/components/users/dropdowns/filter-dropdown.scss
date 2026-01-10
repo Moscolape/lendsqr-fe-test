@@ -1,9 +1,10 @@
 @use "../../../styles/mixins" as mixins;
+@use "../../../styles/variables" as vars;
 
 .filter-dropdown {
   width: 270px;
   padding: 1rem;
-  background: #ffffff;
+  background: vars.$white-bg;
   border: 1px solid #e5e9f2;
   border-radius: 8px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
@@ -20,7 +21,7 @@
     label {
       font-size: 14px;
       font-weight: 500;
-      color: #545f7d;
+      color: vars.$primary-text-color;
       text-transform: none;
     }
 
@@ -36,12 +37,12 @@
       color: #545f7d;
 
       &:focus {
-        border-color: #39cdcc;
+        border-color: vars.$primary-bg-color;
       }
     }
 
     select {
-      background-color: #fff;
+      background-color: vars.$white-bg;
       cursor: pointer;
     }
   }
@@ -60,9 +61,9 @@
     }
 
     .reset {
-      background: #ffffff;
-      border: 1px solid #545f7d;
-      color: #545f7d;
+      background: vars.$white-bg;
+      border: 1px solid vars.$primary-text-color;
+      color: vars.$primary-text-color;
       width: 98px;
 
       &:hover {
@@ -71,13 +72,13 @@
     }
 
     .filter {
-      background: #39cdcc;
+      background: vars.$primary-bg-color;
       border: none;
-      color: #ffffff;
+      color: vars.$white-bg;
       width: 98px;
 
       &:hover {
-        background-color: darken(#39cdcc, 5%);
+        background-color: darken(vars.$primary-bg-color, 5%);
       }
     }
   }

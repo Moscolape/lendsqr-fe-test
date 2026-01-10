@@ -1,5 +1,7 @@
+@use "../../styles/variables" as vars;
+
 .users-table-wrapper {
-  background: #ffffff;
+  background: vars.$white-bg;
   box-shadow: 0 5px 5px rgba(0, 0, 0, 0.03);
   border-radius: 8px;
   padding: 1.5rem;
@@ -22,14 +24,14 @@
   }
 
   thead {
-    background: #ffffff;
+    background: vars.$white-bg;
 
     th {
       text-align: left;
       font-size: 0.75rem;
       font-weight: 600;
       text-transform: uppercase;
-      color: #545f7d;
+      color: vars.$primary-text-color;
       padding: 1rem 0rem;
       white-space: nowrap;
 
@@ -51,7 +53,7 @@
     td {
       padding: 1rem 0rem;
       white-space: nowrap;
-      color: #545f7d;
+      color: vars.$primary-text-color;
     }
 
     .actions {
@@ -101,7 +103,7 @@
   border: none;
   cursor: pointer;
   padding: 4px;
-  color: #545f7d;
+  color: vars.$primary-text-color;
 }
 
 .filterable {

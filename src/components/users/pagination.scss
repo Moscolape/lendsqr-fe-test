@@ -1,15 +1,13 @@
 @use "../../styles/mixins" as mixins;
+@use "../../styles/variables" as vars;
 
 .pagination {
   @include mixins.flex-center;
   justify-content: space-between;
   padding: 1rem 0;
   font-size: 0.875rem;
-  color: #545f7d;
+  color: vars.$primary-text-color;
 
-  /* ======================
-     Tablet & Mobile
-  ====================== */
   @media (max-width: 768px) {
     flex-direction: column;
     align-items: flex-start;
@@ -26,13 +24,12 @@
     border-radius: 4px;
     border: none;
     background: #e5e7eb;
-    color: #213f7d;
+    color: vars.$secondary-text-color;
     font-size: 0.875rem;
     font-weight: 500;
     cursor: pointer;
   }
 
-  /* Mobile */
   @media (max-width: 768px) {
     width: 100%;
     justify-content: space-between;
@@ -43,7 +40,6 @@
   @include mixins.flex-center;
   gap: 0.25rem;
 
-  /* Mobile */
   @media (max-width: 768px) {
     width: 100%;
     justify-content: center;
@@ -71,7 +67,6 @@
     cursor: not-allowed;
   }
 
-  /* Mobile tap target */
   @media (max-width: 768px) {
     min-width: 36px;
     height: 36px;
@@ -89,13 +84,4 @@
 .page-btn.active {
   color: #213f7d;
   font-weight: 600;
-}
-
-/* Hide ellipsis on mobile to reduce clutter */
-.ellipsis {
-  padding: 0 0.5rem;
-
-  @media (max-width: 768px) {
-    display: none;
-  }
 }
