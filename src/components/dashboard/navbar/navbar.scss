@@ -1,5 +1,5 @@
-@use "../../styles/mixins" as mixins;
-@use "../../styles/variables" as vars;
+@use "../../../styles/mixins" as mixins;
+@use "../../../styles/variables" as vars;
 
 .dashboard-navbar {
   position: fixed;
@@ -14,11 +14,6 @@
   border-bottom: 1px solid #e5e9f2;
   font-family: "Work Sans", sans-serif;
   z-index: 1000;
-
-  @media (max-width: 768px) {
-    height: 70px;
-    padding: 0 10px;
-  }
 }
 
 .navbar-left {
@@ -174,5 +169,10 @@
 
   .user-profile .user-dropdown .mobile-only {
     display: flex;
+  }
+
+  .dashboard-navbar {
+    height: 70px;
+    padding: 0 10px;
   }
 }

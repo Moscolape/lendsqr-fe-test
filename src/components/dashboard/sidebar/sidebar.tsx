@@ -21,7 +21,7 @@ export default function DashboardSidebar({
   const [logoutOpen, setLogoutOpen] = useState(false);
   const [orgOpen, setOrgOpen] = useState(false);
 
-  const [selectedOrg, setSelectedOrg] = useState("Lendsqr");
+  const [selectedOrg, setSelectedOrg] = useState("Switch Organization");
 
   const sidebarRef = useRef<HTMLElement>(null);
   const orgRef = useRef<HTMLDivElement>(null);
