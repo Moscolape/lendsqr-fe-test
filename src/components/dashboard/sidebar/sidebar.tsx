@@ -1,12 +1,12 @@
 import { useRef, useState } from "react";
-import SidebarItem from "../../sidebar/item/Item";
-import SidebarSection from "../../sidebar/section/Section";
+import SidebarItem from "../../sidebar/item/item";
+import SidebarSection from "../../sidebar/section/section";
 
-import "./Sidebar.scss";
+import "./sidebar.scss";
 
 import { ASSETS } from "../../../constants/assets";
 import { ChevronDown } from "lucide-react";
-import LogoutModal from "../../modals/LogoutModal";
+import LogoutModal from "../../modals/logout-modal";
 import { useClickOutside } from "../../../hooks/useClickOutside";
 
 export default function DashboardSidebar({

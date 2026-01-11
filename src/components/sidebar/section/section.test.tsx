@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import SidebarSection from "./Section";
+import SidebarSection from "./section";
 
 describe("SidebarSection", () => {
   test("renders section title correctly (positive case)", () => {

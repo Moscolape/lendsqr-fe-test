@@ -1,14 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { render, screen, fireEvent } from "@testing-library/react";
-import Users from "./Users";
+import Users from "./users";
 import { users } from "../../utils/dummy-user-data";
 
 
-jest.mock("../../components/users/ui/UserStats", () => () => (
+jest.mock("../../components/users/ui/user-stats", () => () => (
   <div>UserStats Component</div>
 ));
 
-jest.mock("../../components/users/table/UsersTable", () => ({ data }: any) => (
+jest.mock("../../components/users/table/users-table", () => ({ data }: any) => (
   <div>UsersTable Component with {data.length} users</div>
 ));
 
@@ -17,7 +17,7 @@ jest.mock("../../utils/dummy-user-data", () => ({
 }));
 
 jest.mock(
-  "../../components/users/pagination/Pagination",
+  "../../components/users/pagination/pagination",
   () =>
     ({ onPageChange, onPageSizeChange }: any) =>
       (

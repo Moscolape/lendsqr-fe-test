@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import Loans from "./Loans";
+import Loans from "./loans";
 
 describe("Loans Tab", () => {
   beforeEach(() => {

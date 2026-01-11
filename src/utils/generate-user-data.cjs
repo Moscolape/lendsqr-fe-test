@@ -58,6 +58,3 @@ const users = Array.from({ length: 500 }, generateUser);
 fs.writeFileSync('users.json', JSON.stringify(users, null, 2));
 console.log('Generated users.json with 500 records!');
 console.log('File size:', (fs.statSync('users.json').size / 1024).toFixed(2), 'KB');
-
-fs.writeFileSync('users-minified.json', JSON.stringify(users));
-console.log('Generated users-minified.json (minified)');

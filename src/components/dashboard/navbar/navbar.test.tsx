@@ -1,5 +1,5 @@
 import { render, screen, fireEvent, act } from "@testing-library/react";
-import DashboardNavbar from "./Navbar";
+import DashboardNavbar from "./navbar";
 import React from "react";
 
 jest.mock("../../../constants/assets", () => ({

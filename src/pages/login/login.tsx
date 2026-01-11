@@ -2,6 +2,7 @@ import { useState, type FormEvent, type ChangeEvent, type JSX } from "react";
 import { useNavigate } from "react-router-dom";
 import "./login.scss";
 import { ASSETS } from "../../constants/assets";
+import { AUTH_CONFIG } from "../../configs/auth";
 
 export default function Login(): JSX.Element {
   const [showPassword, setShowPassword] = useState<boolean>(false);
@@ -14,8 +15,8 @@ export default function Login(): JSX.Element {
     setShowPassword((prev) => !prev);
   };
 
-  const dummyEmail = import.meta.env.VITE_LOGIN_EMAIL;
-  const dummyPassword = import.meta.env.VITE_LOGIN_PASSWORD;
+  const dummyEmail = AUTH_CONFIG.email;
+  const dummyPassword = AUTH_CONFIG.password;
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();

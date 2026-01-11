@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-import DashboardWrapper from "./Wrapper";
+import DashboardWrapper from "./wrapper";
 
 jest.mock("../navbar/navbar", () => ({
   __esModule: true,

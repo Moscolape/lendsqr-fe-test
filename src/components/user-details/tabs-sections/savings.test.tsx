@@ -1,5 +1,5 @@
 import { testInfoGroupTab } from "../../../utils/testInfoGroupTab";
-import Savings from "./Savings";
+import Savings from "./savings";
 
 
 describe("Savings Tab", () => {

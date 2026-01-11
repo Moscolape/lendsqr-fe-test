@@ -1,8 +1,8 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
-import DashboardSidebar from "./Sidebar";
+import DashboardSidebar from "./sidebar";
 
-jest.mock("../../sidebar/item/Item", () => ({
+jest.mock("../../sidebar/item/item", () => ({
   __esModule: true,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   default: ({ icon, label }: any) => (
@@ -13,7 +13,7 @@ jest.mock("../../sidebar/item/Item", () => ({
   ),
 }));
 
-jest.mock("../../sidebar/section/Section", () => ({
+jest.mock("../../sidebar/section/section", () => ({
   __esModule: true,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   default: ({ title, children }: any) => (
@@ -37,7 +37,7 @@ jest.mock("../../../hooks/useClickOutside", () => ({
   }),
 }));
 
-jest.mock("../../modals/LogoutModal", () => ({
+jest.mock("../../modals/logout-modal", () => ({
   __esModule: true,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   default: ({ isOpen }: any) => (

@@ -38,7 +38,7 @@ Authentication is mocked to focus on UI, state management, and data flow.
 
 ## 🧩 Data & Mock API
 
-User data is generated using [json-generator.com](https://json-generator.com) and served via [mocky.io](https://mocky.io).
+User data is generated using [faker-js](https://fakerjs.dev/) and served via [mockyapi.io](https://mockapi.io/).
 
 
 ### Mock API Features
