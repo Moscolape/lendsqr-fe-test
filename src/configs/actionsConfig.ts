@@ -1,4 +1,4 @@
-import type { UserAction } from "../components/users/dropdowns/user-actions/user-actions-dropdown";
+import type { UserAction } from "../components/users/dropdowns/user-actions/UserActionsDropdown";
 import { ASSETS } from "../constants/assets";
 
 export const userActions: {

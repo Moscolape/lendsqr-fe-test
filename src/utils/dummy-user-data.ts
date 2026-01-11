@@ -1,4 +1,4 @@
-import type { UserRow } from "../components/users/table/users-table";
+import type { UserRow } from "../components/users/table/UsersTable";
 
 export const users: UserRow[] = [
   {

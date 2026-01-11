@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-import Documents from "./documents";
+import Documents from "./Documents";
 
 describe("Documents Tab", () => {
   beforeEach(() => {

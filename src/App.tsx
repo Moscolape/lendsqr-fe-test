@@ -3,9 +3,9 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import MoonLoader from "react-spinners/MoonLoader";
 
 function App() {
-  const Login = lazy(() => import("./pages/login/login"));
-  const Users = lazy(() => import("./pages/users/users"));
-  const UserDetails = lazy(() => import("./pages/user-details/user-details"));
+  const Login = lazy(() => import("./pages/login/Login"));
+  const Users = lazy(() => import("./pages/users/Users"));
+  const UserDetails = lazy(() => import("./pages/user-details/UserDetails"));
 
   return (
     <Router>

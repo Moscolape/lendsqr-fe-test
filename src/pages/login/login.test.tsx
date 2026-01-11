@@ -1,6 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom'; // Needed for useNavigate
-import Login from './login';
+import Login from "./Login";
 
 
 const mockedNavigate = jest.fn();

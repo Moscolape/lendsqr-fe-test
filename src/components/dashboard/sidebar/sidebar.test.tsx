@@ -1,27 +1,28 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
-import DashboardSidebar from "./sidebar";
+import DashboardSidebar from "./Sidebar";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-jest.mock("../../sidebar/item/item", () => ({ icon, label }: any) => (
-  <div data-testid="sidebar-item">
-    {icon}
-    <span>{label}</span>
-  </div>
-));
+jest.mock("../../sidebar/item/Item", () => ({
+  __esModule: true,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  default: ({ icon, label }: any) => (
+    <div data-testid="sidebar-item">
+      {icon}
+      <span>{label}</span>
+    </div>
+  ),
+}));
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-jest.mock("../../sidebar/section/section", () => ({ title, children }: any) => (
-  <div data-testid="sidebar-section">
-    <p>{title}</p>
-    {children}
-  </div>
-));
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-jest.mock("../../modals/logout-modal", () => ({ isOpen }: any) => (
-  <div data-testid="logout-modal">{isOpen ? "OPEN" : "CLOSED"}</div>
-));
+jest.mock("../../sidebar/section/Section", () => ({
+  __esModule: true,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  default: ({ title, children }: any) => (
+    <div data-testid="sidebar-section">
+      <p>{title}</p>
+      {children}
+    </div>
+  ),
+}));
 
 let callCount = 0;
 let sidebarCallback: (() => void) | null = null;
@@ -36,7 +37,12 @@ jest.mock("../../../hooks/useClickOutside", () => ({
   }),
 }));
 
-jest.mock("../../../constants/assets", () => ({
+jest.mock("../../modals/LogoutModal", () => ({
+  __esModule: true,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  default: ({ isOpen }: any) => (
+    <div data-testid="logout-modal">{isOpen ? "OPEN" : "CLOSED"}</div>
+  ),
   ASSETS: {
     dashboard: "dashboard.svg",
     users: "users.svg",
@@ -103,39 +109,38 @@ describe("DashboardSidebar", () => {
   test("toggles organization dropdown on click", () => {
     render(
       <DashboardSidebar
-        open={true}
+        open
         onClose={onCloseMock}
         menuBtnRef={menuBtnRefMock}
       />
     );
 
-    const switchOrgBtn = screen.getByText(/Lendsqr/i).closest("div")!;
-    expect(screen.queryByText("Switch Organization")).not.toBeInTheDocument();
+    const switchOrgBtn = screen.getByText("Switch Organization");
+
+    expect(screen.queryByText("Lendsqr")).not.toBeInTheDocument();
 
     fireEvent.click(switchOrgBtn);
-    expect(screen.getByText("Switch Organization")).toBeInTheDocument();
+    expect(screen.getByText("Lendsqr")).toBeInTheDocument();
 
     fireEvent.click(switchOrgBtn);
-    expect(screen.queryByText("Switch Organization")).not.toBeInTheDocument();
+    expect(screen.queryByText("Lendsqr")).not.toBeInTheDocument();
   });
 
   test("selecting an organization updates selected org and closes dropdown", () => {
     render(
       <DashboardSidebar
-        open={true}
+        open
         onClose={onCloseMock}
         menuBtnRef={menuBtnRefMock}
       />
     );
 
-    const switchOrgBtn = screen.getByText(/Lendsqr/i).closest("div")!;
-    fireEvent.click(switchOrgBtn);
-
-    const orgButton = screen.getByText("Lendstar");
-    fireEvent.click(orgButton);
+    fireEvent.click(screen.getByText("Switch Organization"));
+    fireEvent.click(screen.getByText("Lendstar"));
 
     expect(screen.getByText("Lendstar")).toBeInTheDocument();
-    expect(screen.queryByText("Switch Organization")).not.toBeInTheDocument();
+
+    expect(screen.queryByText("Lendsqr")).not.toBeInTheDocument();
   });
 
   test("renders logout modal closed initially and opens on clicking logout", () => {

@@ -1,4 +1,4 @@
-import type { FilterValues } from "../components/users/dropdowns/filter/filter-dropdown";
+import type { FilterValues } from "../components/users/dropdowns/filter/FilterDropdown";
 
 export const filterConfig: {
   key: keyof FilterValues;

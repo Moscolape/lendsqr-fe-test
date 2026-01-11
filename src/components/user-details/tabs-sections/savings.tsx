@@ -1,4 +1,4 @@
-import { InfoGroup } from "../ui/info-group";
+import { InfoGroup } from "../ui/InfoGroup";
 import "../tabs.scss";
 
 const Savings = () => {

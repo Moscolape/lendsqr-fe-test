@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
-import DashboardNavbar from "../navbar/navbar";
-import DashboardSidebar from "../sidebar/sidebar";
-import "./wrapper.scss";
+import DashboardNavbar from "../navbar/Navbar";
+import DashboardSidebar from "../sidebar/Sidebar";
+import "./Wrapper.scss";
 
 export default function DashboardWrapper({
   children,

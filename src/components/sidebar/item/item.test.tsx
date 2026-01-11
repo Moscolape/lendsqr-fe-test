@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import SidebarItem from "./item";
+import SidebarItem from "./Item";
 
 
 describe("SidebarItem", () => {

@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-import Pagination from "./pagination";
+import Pagination from "./Pagination";
 
 describe("Pagination Component", () => {
   const setup = (props = {}) => {
