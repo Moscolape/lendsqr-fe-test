@@ -14,8 +14,8 @@ export default function Login(): JSX.Element {
     setShowPassword((prev) => !prev);
   };
 
-  const dummyEmail = "lendsqr@fetest.com";
-  const dummyPassword = "lendelian001";
+  const dummyEmail = import.meta.env.VITE_LOGIN_EMAIL;
+  const dummyPassword = import.meta.env.VITE_LOGIN_PASSWORD;
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
