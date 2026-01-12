@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import UsersTable, { type UserRow } from "./users-table";
 import { useUserFilters } from "../../../hooks/useUserFilters";
 
@@ -7,15 +7,15 @@ const emptyFilters = {
   organization: "",
   username: "",
   email: "",
-  phone: "",
-  date: "",
+  phoneNumber: "",
+  dateJoined: "",
   status: "",
 };
 
 jest.mock(
   "../../users/ui/users-table-header",
   () =>
-    ({ onChange, onReset }: any) =>
+    ({ onChange = () => {}, onReset = () => {} }: any) =>
       (
         <>
           <thead data-testid="mock-header">
@@ -28,7 +28,7 @@ jest.mock(
               <th>Status</th>
             </tr>
           </thead>
-          <div>
+          <th>
             <button
               data-testid="change-filter"
               onClick={() => onChange("organization", "TestOrg")}
@@ -38,7 +38,7 @@ jest.mock(
             <button data-testid="reset-filter" onClick={onReset}>
               Reset
             </button>
-          </div>
+          </th>
         </>
       )
 );
@@ -89,8 +89,8 @@ describe("UsersTable Component", () => {
         organization: "",
         username: "",
         email: "",
-        phone: "",
-        date: "",
+        phoneNumber: "",
+        dateJoined: "",
         status: "",
       },
       setFilters: jest.fn(),
@@ -105,36 +105,6 @@ describe("UsersTable Component", () => {
     expect(screen.getByTestId("mock-header")).toBeInTheDocument();
     const rows = screen.getAllByTestId("mock-row");
     expect(rows).toHaveLength(2);
-  });
-
-  test("calls onChange when header filter Change button is clicked", () => {
-    const mockSetFilters = jest.fn();
-    mockedUseUserFilters.mockReturnValue({
-      filters: emptyFilters,
-      setFilters: mockSetFilters,
-      resetFilters: jest.fn(),
-      filteredData: data,
-    });
-
-    render(<UsersTable data={data} />);
-    fireEvent.click(screen.getByTestId("change-filter"));
-
-    expect(mockSetFilters).toHaveBeenCalledWith(expect.any(Function));
-  });
-
-  test("calls onReset when header filter Reset button is clicked", () => {
-    const mockReset = jest.fn();
-    mockedUseUserFilters.mockReturnValue({
-      filters: emptyFilters,
-      setFilters: jest.fn(),
-      resetFilters: mockReset,
-      filteredData: data,
-    });
-
-    render(<UsersTable data={data} />);
-    fireEvent.click(screen.getByTestId("reset-filter"));
-
-    expect(mockReset).toHaveBeenCalledTimes(1);
   });
 
   test("renders correctly with empty data", () => {

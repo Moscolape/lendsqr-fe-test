@@ -1,23 +1,33 @@
 import HeaderCell from "./users-table-header-cell";
 import FilterDropdown from "../dropdowns/filter/filter-dropdown";
-import type { Filters } from "../../../hooks/useUserFilters";
+import type { ClientFilterValues } from "../../../../globalTypes";
 
 interface Props {
-  filters: Filters;
-  onChange: (field: keyof Filters, value: string) => void;
-  onReset: () => void;
+  tempFilters: ClientFilterValues;
+  onTempFilterChange: (field: keyof ClientFilterValues, value: string) => void;
+  onApplyFilters: () => void;
+  onResetFilters: () => void;
 }
 
-const UsersTableHeader: React.FC<Props> = ({ filters, onChange, onReset }) => {
+const UsersTableHeader: React.FC<Props> = ({
+  tempFilters,
+  onTempFilterChange,
+  onApplyFilters,
+  onResetFilters,
+}) => {
+  const handleFilterApply = () => {
+    onApplyFilters();
+  };
+
   return (
     <thead>
       <tr>
         <HeaderCell label="Organization">
           <FilterDropdown
-            values={filters}
-            onChange={onChange}
-            onReset={onReset}
-            onFilter={() => {}}
+            values={tempFilters}
+            onChange={onTempFilterChange}
+            onReset={onResetFilters}
+            onFilter={handleFilterApply}
             onClose={() => {}}
           />
         </HeaderCell>

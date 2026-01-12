@@ -5,8 +5,8 @@ export type Filters = {
   organization: string;
   username: string;
   email: string;
-  phone: string;
-  date: string;
+  phoneNumber: string;
+  dateJoined: string;
   status: string;
 };
 
@@ -14,8 +14,8 @@ const initialFilters: Filters = {
   organization: "",
   username: "",
   email: "",
-  phone: "",
-  date: "",
+  phoneNumber: "",
+  dateJoined: "",
   status: "",
 };
 
@@ -35,8 +35,8 @@ export const useUserFilters = (data: UserRow[]) => {
             .includes(filters.username.toLowerCase())) &&
         (!filters.email ||
           user.email.toLowerCase().includes(filters.email.toLowerCase())) &&
-        (!filters.phone || user.phoneNumber.includes(filters.phone)) &&
-        (!filters.date || user.dateJoined === filters.date) &&
+        (!filters.phoneNumber || user.phoneNumber.includes(filters.phoneNumber)) &&
+        (!filters.dateJoined || user.dateJoined === filters.dateJoined) &&
         (!filters.status || user.status === filters.status)
       );
     });

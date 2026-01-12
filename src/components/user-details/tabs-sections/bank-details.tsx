@@ -1,15 +1,23 @@
 import { InfoGroup } from "../ui/info-group";
 import "../tabs.scss";
+import type { User } from "../../../../globalTypes";
 
-const BankDetails = () => {
+interface TabComponentProps {
+  userData: User;
+}
+
+const BankDetails: React.FC<TabComponentProps> = ({ userData }) => {
   return (
     <div className="tab-card">
       <InfoGroup
         title="Bank Details"
         items={[
-          { label: "Bank Name", value: "Providus Bank" },
-          { label: "Account Number", value: "9912345678" },
-          { label: "Account Name", value: "Grace Effiom" },
+          { label: "Bank Name", value: userData.bank.bankName },
+          { label: "Account Number", value: userData.bank.accountNumber },
+          {
+            label: "Account Balance",
+            value: `₦${userData.bank.balance.toLocaleString()}`,
+          },
         ]}
       />
     </div>

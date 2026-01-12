@@ -18,9 +18,9 @@ export const filterConfig: {
   },
   { key: "username", label: "Username", placeholder: "User" },
   { key: "email", label: "Email", type: "email", placeholder: "Email" },
-  { key: "date", label: "Date", type: "date" },
+  { key: "dateJoined", label: "Date", type: "date" },
   {
-    key: "phone",
+    key: "phoneNumber",
     label: "Phone Number",
     type: "tel",
     placeholder: "Phone Number",

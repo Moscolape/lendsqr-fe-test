@@ -1,33 +1,50 @@
 import { useState } from "react";
 import { ASSETS } from "../../constants/assets";
 import UserTabs from "./user-details.tab";
-
-import "./user-details.scss";
 import BlacklistUserModal from "../modals/blacklist-modal";
 import ActivateUserModal from "../modals/activate-modal";
+import "./user-details.scss";
+
+interface UserData {
+  fullName: string;
+  phoneNumber: string;
+  email: string;
+  bvn: string;
+  organization: string;
+  status: string;
+  bank: {
+    balance: number;
+    accountNumber: string;
+    bankName: string;
+  };
+}
 
 interface Props {
   activeTab: string;
   onTabChange: (tab: string) => void;
-  userId?: string;
+  userId: string;
+  userData: UserData;
+  tierStars: number;
+  onStatusUpdate?: (status: string) => void;
 }
 
-const UserProfile: React.FC = () => (
+const UserProfile: React.FC<{ userData: UserData }> = ({ userData }) => (
   <div className="profile">
     <div className="avatar">
       <img src={ASSETS.avatarIcon} alt="avatar" />
     </div>
     <div className="identity">
-      <h3>Grace Effiom</h3>
-      <p>LSQFf587g90</p>
+      <h3>{userData.fullName}</h3>
+      <p>{userData.bvn || "LSQFf587g90"}</p>
     </div>
   </div>
 );
+
 const Divider: React.FC = () => <div className="divider" />;
 
 const UserTier: React.FC<{ stars: number }> = ({ stars }) => (
   <div className="tier">
-    <p>User’s Tier</p>
+    <p>User's Tier</p>
     <div className="stars">
       {Array.from({ length: 3 }, (_, i) => (
         <img
@@ -40,22 +57,46 @@ const UserTier: React.FC<{ stars: number }> = ({ stars }) => (
   </div>
 );
 
-const UserFinance: React.FC = () => (
-  <div className="finance">
-    <p>₦200,000.00</p>
-    <span>9912345678/Providus Bank</span>
-  </div>
-);
+const UserFinance: React.FC<{ userData: UserData }> = ({ userData }) => {
+  const formattedBalance = new Intl.NumberFormat("en-NG", {
+    style: "currency",
+    currency: "NGN",
+    minimumFractionDigits: 2,
+  }).format(userData.bank.balance || 0);
+
+  return (
+    <div className="finance">
+      <p>{formattedBalance}</p>
+      <span>
+        {userData.bank.accountNumber || "N/A"}/{userData.bank.bankName || "N/A"}
+      </span>
+    </div>
+  );
+};
 
 const UserDetailsHeader: React.FC<Props> = ({
   activeTab,
   onTabChange,
-  userId,
+  userData,
+  tierStars,
+  onStatusUpdate,
 }) => {
   const [blacklistModalOpen, setBlacklistModalOpen] = useState(false);
   const [activateModalOpen, setActivateModalOpen] = useState(false);
 
-  const userStars = 2;
+  const handleBlacklist = async () => {
+    if (onStatusUpdate) {
+      console.log("blacklisted");
+    }
+    setBlacklistModalOpen(false);
+  };
+
+  const handleActivate = async () => {
+    if (onStatusUpdate) {
+      console.log("activated");
+    }
+    setActivateModalOpen(false);
+  };
 
   return (
     <section className="user-details-header">
@@ -70,12 +111,14 @@ const UserDetailsHeader: React.FC<Props> = ({
           <button
             className="danger"
             onClick={() => setBlacklistModalOpen(true)}
+            disabled={userData.status === "blacklisted"}
           >
             Blacklist User
           </button>
           <button
             className="primary"
             onClick={() => setActivateModalOpen(true)}
+            disabled={userData.status === "active"}
           >
             Activate User
           </button>
@@ -84,28 +127,30 @@ const UserDetailsHeader: React.FC<Props> = ({
 
       <div className="card">
         <div className="highlighted-info">
-          <UserProfile />
+          <UserProfile userData={userData} />
           <Divider />
-          <UserTier stars={userStars} />
+          <UserTier stars={tierStars} />
           <Divider />
-          <UserFinance />
+          <UserFinance userData={userData} />
         </div>
 
         <UserTabs activeTab={activeTab} onChange={onTabChange} />
       </div>
 
-      {blacklistModalOpen && userId && (
+      {blacklistModalOpen && (
         <BlacklistUserModal
           isOpen={blacklistModalOpen}
-          userId={userId}
+          userName={userData.fullName}
+          onConfirm={handleBlacklist}
           close={() => setBlacklistModalOpen(false)}
         />
       )}
 
-      {activateModalOpen && userId && (
+      {activateModalOpen && (
         <ActivateUserModal
           isOpen={activateModalOpen}
-          userId={userId}
+          userName={userData.fullName}
+          onConfirm={handleActivate}
           close={() => setActivateModalOpen(false)}
         />
       )}

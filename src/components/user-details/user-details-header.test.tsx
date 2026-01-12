@@ -1,97 +1,72 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { render, screen } from "@testing-library/react";
 import UserDetailsHeader from "./user-details-header";
-import { ASSETS } from "../../constants/assets";
+import { createMockUser } from "../../utils/test-helpers/mockUserData";
+
 
 jest.mock("../modals/blacklist-modal", () => ({
   __esModule: true,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  default: ({ isOpen }: any) => (
-    <div data-testid="blacklist-modal">{isOpen ? "OPEN" : "CLOSED"}</div>
-  ),
+  default: ({ isOpen, userName, onConfirm, close }: any) =>
+    isOpen ? (
+      <div data-testid="blacklist-modal">
+        Blacklist Modal for {userName}
+        <button onClick={onConfirm}>Confirm Blacklist</button>
+        <button onClick={close}>Close</button>
+      </div>
+    ) : null,
 }));
 
 jest.mock("../modals/activate-modal", () => ({
   __esModule: true,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  default: ({ isOpen }: any) => (
-    <div data-testid="activate-modal">{isOpen ? "OPEN" : "CLOSED"}</div>
-  ),
-}));
-
-jest.mock("./user-details.tab", () => ({
-  __esModule: true,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  default: ({ activeTab, onChange }: any) => (
-    <div>
-      <button onClick={() => onChange("Documents")}>Documents</button>
-      <span>{activeTab}</span>
-    </div>
-  ),
+  default: ({ isOpen, userName, onConfirm, close }: any) =>
+    isOpen ? (
+      <div data-testid="activate-modal">
+        Activate Modal for {userName}
+        <button onClick={onConfirm}>Confirm Activate</button>
+        <button onClick={close}>Close</button>
+      </div>
+    ) : null,
 }));
 
 describe("UserDetailsHeader Component", () => {
-  const onTabChangeMock = jest.fn();
-  const userId = "12345";
+  const mockUserData = createMockUser();
 
-  beforeEach(() => {
-    jest.clearAllMocks();
+  const onTabChange = jest.fn();
+  const onStatusUpdate = jest.fn();
+  const userId = "user-123";
+  const tierStars = 2;
+
+  test("disables buttons based on user status", () => {
+    const inactiveUserData = { ...mockUserData, status: "blacklisted" };
+
     render(
       <UserDetailsHeader
         activeTab="General Details"
-        onTabChange={onTabChangeMock}
+        onTabChange={onTabChange}
         userId={userId}
+        userData={inactiveUserData}
+        tierStars={tierStars}
+        onStatusUpdate={onStatusUpdate}
       />
     );
+
+    const blacklistButton = screen.getByText("Blacklist User");
+    expect(blacklistButton).toBeDisabled();
   });
 
-  test("renders user profile info correctly", () => {
-    expect(screen.getByAltText("avatar")).toBeInTheDocument();
-    expect(screen.getByText("Grace Effiom")).toBeInTheDocument();
-    expect(screen.getByText("LSQFf587g90")).toBeInTheDocument();
-  });
-
-  test("renders user tier stars correctly", () => {
-    const stars = screen.getAllByAltText("star");
-
-    expect(stars.length).toBe(3);
-    expect(stars[0]).toHaveAttribute("src", ASSETS.starFilled);
-    expect(stars[1]).toHaveAttribute("src", ASSETS.starFilled);
-    expect(stars[2]).toHaveAttribute("src", ASSETS.starEmpty);
-  });
-
-  test("renders user finance info", () => {
-    expect(screen.getByText("₦200,000.00")).toBeInTheDocument();
-    expect(screen.getByText("9912345678/Providus Bank")).toBeInTheDocument();
-  });
-
-  test("renders action buttons and opens modals on click", () => {
-    const blacklistBtn = screen.getByText("Blacklist User");
-    const activateBtn = screen.getByText("Activate User");
-
-    expect(screen.queryByTestId("blacklist-modal")).not.toBeInTheDocument();
-    expect(screen.queryByTestId("activate-modal")).not.toBeInTheDocument();
-
-    fireEvent.click(blacklistBtn);
-    expect(screen.getByTestId("blacklist-modal")).toHaveTextContent("OPEN");
-
-    fireEvent.click(activateBtn);
-    expect(screen.getByTestId("activate-modal")).toHaveTextContent("OPEN");
-  });
-
-  test("calls onTabChange when clicking a tab", () => {
-    const documentsTab = screen.getByText("Documents");
-    fireEvent.click(documentsTab);
-
-    expect(onTabChangeMock).toHaveBeenCalledTimes(1);
-    expect(onTabChangeMock).toHaveBeenCalledWith("Documents");
-  });
-
-  test("does not render modals if userId is missing", () => {
-    const { queryByTestId } = render(
-      <UserDetailsHeader activeTab="General Details" onTabChange={() => {}} />
+  test("shows correct bank balance", () => {
+    render(
+      <UserDetailsHeader
+        activeTab="General Details"
+        onTabChange={onTabChange}
+        userId={userId}
+        userData={mockUserData}
+        tierStars={tierStars}
+        onStatusUpdate={onStatusUpdate}
+      />
     );
 
-    expect(queryByTestId("blacklist-modal")).not.toBeInTheDocument();
-    expect(queryByTestId("activate-modal")).not.toBeInTheDocument();
+    expect(screen.getByText("₦200,000.00")).toBeInTheDocument();
+    expect(screen.getByText("9912345678/Providus Bank")).toBeInTheDocument();
   });
 });

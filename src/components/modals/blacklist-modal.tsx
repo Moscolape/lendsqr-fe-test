@@ -5,16 +5,18 @@ import "./modal.scss";
 type BlacklistUserModalProps = {
   isOpen: boolean;
   close: () => void;
-  userId: string;
+  userName?: string;
+  onConfirm: () => void;
 };
 
 const BlacklistUserModal: React.FC<BlacklistUserModalProps> = ({
   isOpen,
   close,
-  userId,
+  userName,
+  onConfirm,
 }) => {
-  const handleBlacklistUser = (id: string) => {
-    console.log(`User with id ${id} has been blacklisted`);
+  const handleBlacklistUser = () => {
+    onConfirm();
     close();
   };
 
@@ -24,7 +26,7 @@ const BlacklistUserModal: React.FC<BlacklistUserModalProps> = ({
         <h2 className="modal__title">Blacklisting User</h2>
 
         <p className="modal__text">
-          Are you sure you want to blacklist this user?
+          Are you sure you want to blacklist {userName}?
         </p>
 
         <div className="modal__actions">
@@ -34,7 +36,7 @@ const BlacklistUserModal: React.FC<BlacklistUserModalProps> = ({
 
           <button
             className="btn btn--danger"
-            onClick={() => handleBlacklistUser(userId)}
+            onClick={() => handleBlacklistUser()}
           >
             Yes
           </button>

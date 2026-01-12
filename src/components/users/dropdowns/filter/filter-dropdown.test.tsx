@@ -18,8 +18,8 @@ describe("FilterDropdown Component", () => {
     organization: "",
     username: "",
     email: "",
-    date: "",
-    phone: "",
+    dateJoined: "",
+    phoneNumber: "",
     status: "",
   };
 

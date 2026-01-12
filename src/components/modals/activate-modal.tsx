@@ -5,16 +5,18 @@ import "./modal.scss";
 type ActivateUserModalProps = {
   isOpen: boolean;
   close: () => void;
-  userId: string;
+  userName?: string;
+  onConfirm: () => void;
 };
 
 const ActivateUserModal: React.FC<ActivateUserModalProps> = ({
   isOpen,
   close,
-  userId,
+  userName,
+  onConfirm,
 }) => {
-  const handleActivateUser = (id: string) => {
-    console.log(`User with id ${id} has been activated`);
+  const handleActivateUser = () => {
+    onConfirm();
     close();
   };
 
@@ -24,7 +26,7 @@ const ActivateUserModal: React.FC<ActivateUserModalProps> = ({
         <h2 className="modal__title">Activating User</h2>
 
         <p className="modal__text">
-          Are you sure you want to activate this user?
+          Are you sure you want to activate {userName}?
         </p>
 
         <div className="modal__actions">
@@ -34,7 +36,7 @@ const ActivateUserModal: React.FC<ActivateUserModalProps> = ({
 
           <button
             className="btn btn--proceed"
-            onClick={() => handleActivateUser(userId)}
+            onClick={() => handleActivateUser()}
           >
             Yes
           </button>

@@ -14,7 +14,8 @@ jest.mock("./wrapper/modal-wrapper", () => ({
 
 describe("ActivateUserModal", () => {
   const closeMock = jest.fn();
-  const userId = "user-456";
+  const onConfirmMock = jest.fn();
+  const userName = "John Doe";
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -22,7 +23,12 @@ describe("ActivateUserModal", () => {
 
   test("does not render when isOpen is false (negative case)", () => {
     render(
-      <ActivateUserModal isOpen={false} close={closeMock} userId={userId} />
+      <ActivateUserModal
+        isOpen={false}
+        close={closeMock}
+        userName={userName}
+        onConfirm={onConfirmMock}
+      />
     );
 
     expect(screen.queryByText(/Activating User/i)).not.toBeInTheDocument();
@@ -30,54 +36,86 @@ describe("ActivateUserModal", () => {
 
   test("renders modal content when open (positive case)", () => {
     render(
-      <ActivateUserModal isOpen={true} close={closeMock} userId={userId} />
+      <ActivateUserModal
+        isOpen={true}
+        close={closeMock}
+        userName={userName}
+        onConfirm={onConfirmMock}
+      />
     );
 
     expect(screen.getByText(/Activating User/i)).toBeInTheDocument();
 
     expect(
-      screen.getByText(/Are you sure you want to activate this user/i)
+      screen.getByText(`Are you sure you want to activate ${userName}?`)
     ).toBeInTheDocument();
 
-    expect(screen.getByText(/Yes/i)).toBeInTheDocument();
     expect(screen.getByText(/No/i)).toBeInTheDocument();
+    expect(screen.getByText(/Yes/i)).toBeInTheDocument();
   });
 
   test("clicking 'No' button closes modal (negative action)", () => {
     render(
-      <ActivateUserModal isOpen={true} close={closeMock} userId={userId} />
+      <ActivateUserModal
+        isOpen={true}
+        close={closeMock}
+        userName={userName}
+        onConfirm={onConfirmMock}
+      />
     );
 
     fireEvent.click(screen.getByText(/No/i));
 
     expect(closeMock).toHaveBeenCalled();
+    expect(onConfirmMock).not.toHaveBeenCalled();
   });
 
-  test("clicking 'Yes' activates user and closes modal (positive case)", () => {
-    const consoleSpy = jest.spyOn(console, "log").mockImplementation(() => {});
-
+  test("clicking 'Yes' calls onConfirm and closes modal (positive case)", () => {
     render(
-      <ActivateUserModal isOpen={true} close={closeMock} userId={userId} />
+      <ActivateUserModal
+        isOpen={true}
+        close={closeMock}
+        userName={userName}
+        onConfirm={onConfirmMock}
+      />
     );
 
     fireEvent.click(screen.getByText(/Yes/i));
 
-    expect(consoleSpy).toHaveBeenCalledWith(
-      `User with id ${userId} has been activated`
-    );
-
-    expect(closeMock).toHaveBeenCalled();
-
-    consoleSpy.mockRestore();
+    expect(onConfirmMock).toHaveBeenCalledTimes(1);
+    expect(closeMock).toHaveBeenCalledTimes(1);
   });
 
   test("clicking backdrop closes modal (negative case)", () => {
     render(
-      <ActivateUserModal isOpen={true} close={closeMock} userId={userId} />
+      <ActivateUserModal
+        isOpen={true}
+        close={closeMock}
+        userName={userName}
+        onConfirm={onConfirmMock}
+      />
     );
 
     fireEvent.click(screen.getByTestId("modal-backdrop"));
 
     expect(closeMock).toHaveBeenCalled();
+    expect(onConfirmMock).not.toHaveBeenCalled();
+  });
+
+  test("modal displays correct user name", () => {
+    const testUserName = "Grace Effiom";
+
+    render(
+      <ActivateUserModal
+        isOpen={true}
+        close={closeMock}
+        userName={testUserName}
+        onConfirm={onConfirmMock}
+      />
+    );
+
+    expect(
+      screen.getByText(`Are you sure you want to activate ${testUserName}?`)
+    ).toBeInTheDocument();
   });
 });

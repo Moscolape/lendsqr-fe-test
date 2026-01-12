@@ -76,7 +76,9 @@ const UserRowItem: React.FC<Props> = ({ user, isLast }) => {
       {blacklistModalOpen && (
         <BlacklistUserModal
           isOpen={blacklistModalOpen}
-          userId={user.id}
+          onConfirm={() => {
+            setBlacklistModalOpen(false);
+          }}
           close={() => setBlacklistModalOpen(false)}
         />
       )}
@@ -84,7 +86,9 @@ const UserRowItem: React.FC<Props> = ({ user, isLast }) => {
       {activateModalOpen && (
         <ActivateUserModal
           isOpen={activateModalOpen}
-          userId={user.id}
+          onConfirm={() => {
+            setActivateModalOpen(false);
+          }}
           close={() => setActivateModalOpen(false)}
         />
       )}

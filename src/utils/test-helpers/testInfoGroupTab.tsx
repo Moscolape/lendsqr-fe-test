@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { render, screen } from "@testing-library/react";
 
-jest.mock("../components/user-details/ui/info-group", () => ({
+jest.mock("../../components/user-details/ui/info-group", () => ({
   __esModule: true,
   InfoGroup: jest.fn(({ title, items }: any) => (
     <div data-testid="info-group">

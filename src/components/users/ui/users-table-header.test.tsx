@@ -1,30 +1,48 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import UsersTableHeader from "./users-table-header";
-import type { Filters } from "../../../hooks/useUserFilters";
+import type { ClientFilterValues } from "../../../../globalTypes";
 
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-jest.mock("../dropdowns/filter/filter-dropdown", () => ({ onChange, onReset, onFilter, onClose }: any) => (
-  <div data-testid="mock-filter-dropdown">
-    <button onClick={() => onChange("organization", "TestOrg")}>Change</button>
-    <button onClick={onReset}>Reset</button>
-    <button onClick={onFilter}>Filter</button>
-    <button onClick={onClose}>Close</button>
-  </div>
-));
+jest.mock("../dropdowns/filter/filter-dropdown", () => ({
+  __esModule: true,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  default: ({ onChange, onReset, onFilter, onClose }: any) => (
+    <div data-testid="mock-filter-dropdown">
+      <button onClick={() => onChange("organization", "TestOrg")}>Change</button>
+      <button onClick={onReset}>Reset</button>
+      <button onClick={onFilter}>Filter</button>
+      <button onClick={onClose}>Close</button>
+    </div>
+  ),
+}));
+
+
+jest.mock("./users-table-header-cell", () => ({
+  __esModule: true,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  default: ({ children, label }: any) => (
+    <th>
+      <div data-testid={`header-cell-${label}`}>
+        {label}
+        {children}
+      </div>
+    </th>
+  ),
+}));
 
 describe("UsersTableHeader Component", () => {
-  const filters: Filters = {
+  const tempFilters: ClientFilterValues = {
     organization: "",
     username: "",
     email: "",
-    phone: "",
-    date: "",
+    dateJoined: "",
+    phoneNumber: "",
     status: "",
   };
 
-  const onChange = jest.fn();
-  const onReset = jest.fn();
+  const onTempFilterChange = jest.fn();
+  const onApplyFilters = jest.fn();
+  const onResetFilters = jest.fn();
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -33,7 +51,12 @@ describe("UsersTableHeader Component", () => {
   test("renders all header labels", () => {
     render(
       <table>
-        <UsersTableHeader filters={filters} onChange={onChange} onReset={onReset} />
+        <UsersTableHeader 
+          tempFilters={tempFilters}
+          onTempFilterChange={onTempFilterChange}
+          onApplyFilters={onApplyFilters}
+          onResetFilters={onResetFilters}
+        />
       </table>
     );
 
@@ -45,37 +68,84 @@ describe("UsersTableHeader Component", () => {
     expect(screen.getByText("Status")).toBeInTheDocument();
   });
 
-  test("renders FilterDropdown in Organization header after clicking icon", () => {
+  test("renders FilterDropdown in Organization header", () => {
     render(
       <table>
-        <UsersTableHeader filters={filters} onChange={onChange} onReset={onReset} />
+        <UsersTableHeader 
+          tempFilters={tempFilters}
+          onTempFilterChange={onTempFilterChange}
+          onApplyFilters={onApplyFilters}
+          onResetFilters={onResetFilters}
+        />
       </table>
     );
-
-
-    const filterIcon = screen.getAllByRole("img")[0];
-    fireEvent.click(filterIcon);
 
     expect(screen.getByTestId("mock-filter-dropdown")).toBeInTheDocument();
   });
 
-  test("calls onChange and onReset when dropdown buttons are clicked", () => {
+  test("calls onTempFilterChange when dropdown change button is clicked", () => {
     render(
       <table>
-        <UsersTableHeader filters={filters} onChange={onChange} onReset={onReset} />
+        <UsersTableHeader 
+          tempFilters={tempFilters}
+          onTempFilterChange={onTempFilterChange}
+          onApplyFilters={onApplyFilters}
+          onResetFilters={onResetFilters}
+        />
       </table>
     );
 
-
-    const filterIcon = screen.getAllByRole("img")[0];
-    fireEvent.click(filterIcon);
-
-
     fireEvent.click(screen.getByText("Change"));
-    expect(onChange).toHaveBeenCalledWith("organization", "TestOrg");
+    expect(onTempFilterChange).toHaveBeenCalledWith("organization", "TestOrg");
+  });
 
+  test("calls onResetFilters when dropdown reset button is clicked", () => {
+    render(
+      <table>
+        <UsersTableHeader 
+          tempFilters={tempFilters}
+          onTempFilterChange={onTempFilterChange}
+          onApplyFilters={onApplyFilters}
+          onResetFilters={onResetFilters}
+        />
+      </table>
+    );
 
     fireEvent.click(screen.getByText("Reset"));
-    expect(onReset).toHaveBeenCalledTimes(1);
+    expect(onResetFilters).toHaveBeenCalledTimes(1);
+  });
+
+  test("calls onApplyFilters when dropdown filter button is clicked", () => {
+    render(
+      <table>
+        <UsersTableHeader 
+          tempFilters={tempFilters}
+          onTempFilterChange={onTempFilterChange}
+          onApplyFilters={onApplyFilters}
+          onResetFilters={onResetFilters}
+        />
+      </table>
+    );
+
+    fireEvent.click(screen.getByText("Filter"));
+    expect(onApplyFilters).toHaveBeenCalledTimes(1);
+  });
+
+  test("calls onClose when dropdown close button is clicked", () => {
+    const consoleSpy = jest.spyOn(console, 'log');
+    
+    render(
+      <table>
+        <UsersTableHeader 
+          tempFilters={tempFilters}
+          onTempFilterChange={onTempFilterChange}
+          onApplyFilters={onApplyFilters}
+          onResetFilters={onResetFilters}
+        />
+      </table>
+    );
+
+    fireEvent.click(screen.getByText("Close"));
+    expect(consoleSpy).not.toHaveBeenCalled();
   });
 });

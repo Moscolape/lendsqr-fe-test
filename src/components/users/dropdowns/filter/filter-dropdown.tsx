@@ -9,8 +9,8 @@ export type FilterValues = {
   organization: string;
   username: string;
   email: string;
-  date: string;
-  phone: string;
+  dateJoined: string;
+  phoneNumber: string;
   status: string;
 };
 
