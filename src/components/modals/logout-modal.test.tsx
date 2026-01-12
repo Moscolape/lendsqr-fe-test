@@ -2,6 +2,7 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import LogoutModal from "./logout-modal";
 import React from "react";
 
+// Mock ModalWrapper to control open/close behavior in tests
 jest.mock("./wrapper/modal-wrapper", () => ({
   __esModule: true,
   default: ({
@@ -21,8 +22,10 @@ describe("LogoutModal", () => {
   beforeEach(() => {
     closeMock = jest.fn();
 
+    // Spy on storage clear methods
     jest.spyOn(Storage.prototype, "clear");
 
+    // Mock window.location for redirect assertions
     Object.defineProperty(window, "location", {
       value: { href: "" },
       writable: true,

@@ -1,6 +1,7 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import ActivateUserModal from "./activate-modal";
 
+// Mock ModalWrapper to simplify portal behavior in tests
 jest.mock("./wrapper/modal-wrapper", () => ({
   __esModule: true,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -13,12 +14,12 @@ jest.mock("./wrapper/modal-wrapper", () => ({
 }));
 
 describe("ActivateUserModal", () => {
-  const closeMock = jest.fn();
-  const onConfirmMock = jest.fn();
+  const closeMock = jest.fn(); // mock close handler
+  const onConfirmMock = jest.fn(); // mock confirm handler
   const userName = "John Doe";
 
   beforeEach(() => {
-    jest.clearAllMocks();
+    jest.clearAllMocks(); // reset mocks before each test
   });
 
   test("does not render when isOpen is false (negative case)", () => {
@@ -31,6 +32,7 @@ describe("ActivateUserModal", () => {
       />
     );
 
+    // Modal should not be visible when closed
     expect(screen.queryByText(/Activating User/i)).not.toBeInTheDocument();
   });
 
@@ -44,12 +46,11 @@ describe("ActivateUserModal", () => {
       />
     );
 
+    // Verify modal text and actions are rendered
     expect(screen.getByText(/Activating User/i)).toBeInTheDocument();
-
     expect(
       screen.getByText(`Are you sure you want to activate ${userName}?`)
     ).toBeInTheDocument();
-
     expect(screen.getByText(/No/i)).toBeInTheDocument();
     expect(screen.getByText(/Yes/i)).toBeInTheDocument();
   });
@@ -64,6 +65,7 @@ describe("ActivateUserModal", () => {
       />
     );
 
+    // Click cancel action
     fireEvent.click(screen.getByText(/No/i));
 
     expect(closeMock).toHaveBeenCalled();
@@ -80,6 +82,7 @@ describe("ActivateUserModal", () => {
       />
     );
 
+    // Confirm activation
     fireEvent.click(screen.getByText(/Yes/i));
 
     expect(onConfirmMock).toHaveBeenCalledTimes(1);
@@ -96,6 +99,7 @@ describe("ActivateUserModal", () => {
       />
     );
 
+    // Click outside modal content
     fireEvent.click(screen.getByTestId("modal-backdrop"));
 
     expect(closeMock).toHaveBeenCalled();
@@ -114,6 +118,7 @@ describe("ActivateUserModal", () => {
       />
     );
 
+    // Ensure correct user name is shown
     expect(
       screen.getByText(`Are you sure you want to activate ${testUserName}?`)
     ).toBeInTheDocument();

@@ -4,7 +4,9 @@ import DashboardNavbar from "./navbar";
 import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
-// Mock assets
+/**
+ * Mock static assets to avoid loading actual files in tests
+ */
 jest.mock("../../../constants/assets", () => ({
   ASSETS: {
     logo: "logo.svg",
@@ -15,14 +17,20 @@ jest.mock("../../../constants/assets", () => ({
   },
 }));
 
-// Mock useClickOutside
+/**
+ * Mock useClickOutside hook.
+ * We expose the handler globally so we can manually trigger it
+ * in tests to simulate clicking outside the dropdown.
+ */
 jest.mock("../../../hooks/useClickOutside", () => ({
   useClickOutside: (_ref: any, handler: () => void) => {
     (globalThis as any).__outsideClickHandler = handler;
   },
 }));
 
-// Mock react-router hooks
+/**
+ * Mock react-router hooks used by the navbar
+ */
 jest.mock("react-router-dom", () => ({
   useNavigate: jest.fn(),
   useLocation: jest.fn(),
@@ -38,41 +46,61 @@ describe("DashboardNavbar", () => {
     menuBtnRefMock = React.createRef<HTMLButtonElement>();
     navigateMock = jest.fn();
 
-    // Mock useNavigate
+    // Provide mocked navigate function
     (useNavigate as jest.Mock).mockReturnValue(navigateMock);
 
-    // Default location
+    // Default route state
     (useLocation as jest.Mock).mockReturnValue({
       pathname: "/dashboard",
       search: "",
     });
   });
 
+  /**
+   * Smoke test to ensure core UI elements render
+   */
   test("renders all main navbar elements", () => {
     render(
-      <DashboardNavbar toggleSidebar={toggleSidebarMock} menuBtnRef={menuBtnRefMock} />
+      <DashboardNavbar
+        toggleSidebar={toggleSidebarMock}
+        menuBtnRef={menuBtnRefMock}
+      />
     );
 
     expect(screen.getByRole("button", { name: /menu/i })).toBeInTheDocument();
     expect(screen.getByAltText(/Lendsqr logo/i)).toBeInTheDocument();
-    expect(screen.getByPlaceholderText(/Search for anything/i)).toBeInTheDocument();
+    expect(
+      screen.getByPlaceholderText(/Search for anything/i)
+    ).toBeInTheDocument();
     expect(screen.getByText(/Docs/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/Notifications/i)).toBeInTheDocument();
     expect(screen.getByText(/Adedeji/i)).toBeInTheDocument();
   });
 
+  /**
+   * Sidebar toggle behavior
+   */
   test("menu button calls toggleSidebar when clicked", () => {
     render(
-      <DashboardNavbar toggleSidebar={toggleSidebarMock} menuBtnRef={menuBtnRefMock} />
+      <DashboardNavbar
+        toggleSidebar={toggleSidebarMock}
+        menuBtnRef={menuBtnRefMock}
+      />
     );
 
     fireEvent.click(screen.getByRole("button", { name: /menu/i }));
     expect(toggleSidebarMock).toHaveBeenCalledTimes(1);
   });
 
+  /**
+   * User dropdown open/close behavior
+   */
   test("user dropdown toggles on click", () => {
     render(
-      <DashboardNavbar toggleSidebar={toggleSidebarMock} menuBtnRef={menuBtnRefMock} />
+      <DashboardNavbar
+        toggleSidebar={toggleSidebarMock}
+        menuBtnRef={menuBtnRefMock}
+      />
     );
 
     const userProfile = screen.getByText(/Adedeji/i).closest("div")!;
@@ -86,9 +114,15 @@ describe("DashboardNavbar", () => {
     expect(screen.queryByText(/Profile/i)).not.toBeInTheDocument();
   });
 
+  /**
+   * Search input interaction and navigation
+   */
   test("search input can be typed into and triggers navigate", () => {
     render(
-      <DashboardNavbar toggleSidebar={toggleSidebarMock} menuBtnRef={menuBtnRefMock} />
+      <DashboardNavbar
+        toggleSidebar={toggleSidebarMock}
+        menuBtnRef={menuBtnRefMock}
+      />
     );
 
     const searchInput = screen.getByPlaceholderText(
@@ -98,33 +132,46 @@ describe("DashboardNavbar", () => {
     fireEvent.change(searchInput, { target: { value: "test search" } });
     expect(searchInput.value).toBe("test search");
 
-    // Press Enter triggers handleSearch
     fireEvent.keyDown(searchInput, { key: "Enter", code: "Enter" });
-    expect(navigateMock).toHaveBeenCalledWith("/users?search=test%20search");
+    expect(navigateMock).toHaveBeenCalledWith(
+      "/users?search=test%20search"
+    );
   });
 
+  /**
+   * Clear-search button behavior
+   */
   test("clear-search button appears when search has value and clears input", () => {
     render(
-      <DashboardNavbar toggleSidebar={toggleSidebarMock} menuBtnRef={menuBtnRefMock} />
+      <DashboardNavbar
+        toggleSidebar={toggleSidebarMock}
+        menuBtnRef={menuBtnRefMock}
+      />
     );
 
-    const searchInput = screen.getByPlaceholderText(/Search for anything/i) as HTMLInputElement;
+    const searchInput = screen.getByPlaceholderText(
+      /Search for anything/i
+    ) as HTMLInputElement;
 
-    // Type something
     fireEvent.change(searchInput, { target: { value: "clear me" } });
 
     const clearBtn = screen.getByRole("button", { name: "✕" });
     expect(clearBtn).toBeInTheDocument();
 
-    // Click clear button
     fireEvent.click(clearBtn);
     expect(searchInput.value).toBe("");
     expect(navigateMock).toHaveBeenCalledWith("/users");
   });
 
+  /**
+   * Clicking outside the dropdown closes it
+   */
   test("dropdown closes when clicking outside", () => {
     render(
-      <DashboardNavbar toggleSidebar={toggleSidebarMock} menuBtnRef={menuBtnRefMock} />
+      <DashboardNavbar
+        toggleSidebar={toggleSidebarMock}
+        menuBtnRef={menuBtnRefMock}
+      />
     );
 
     fireEvent.click(screen.getByText(/Adedeji/i));
@@ -137,6 +184,9 @@ describe("DashboardNavbar", () => {
     expect(screen.queryByText(/Profile/i)).not.toBeInTheDocument();
   });
 
+  /**
+   * Search input initializes from URL query param
+   */
   test("search input initializes from URL query param", () => {
     (useLocation as jest.Mock).mockReturnValue({
       pathname: "/users",
@@ -144,10 +194,16 @@ describe("DashboardNavbar", () => {
     });
 
     render(
-      <DashboardNavbar toggleSidebar={toggleSidebarMock} menuBtnRef={menuBtnRefMock} />
+      <DashboardNavbar
+        toggleSidebar={toggleSidebarMock}
+        menuBtnRef={menuBtnRefMock}
+      />
     );
 
-    const searchInput = screen.getByPlaceholderText(/Search for anything/i) as HTMLInputElement;
+    const searchInput = screen.getByPlaceholderText(
+      /Search for anything/i
+    ) as HTMLInputElement;
+
     expect(searchInput.value).toBe("myquery");
   });
 });

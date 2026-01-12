@@ -2,6 +2,7 @@ import { render, screen } from "@testing-library/react";
 import SidebarSection from "./section";
 
 describe("SidebarSection", () => {
+  // Verifies that the section title renders correctly
   test("renders section title correctly (positive case)", () => {
     render(
       <SidebarSection title="Customers">
@@ -12,6 +13,7 @@ describe("SidebarSection", () => {
     expect(screen.getByText("Customers")).toBeInTheDocument();
   });
 
+  // Ensures children passed to the component are rendered
   test("renders children correctly (positive case)", () => {
     render(
       <SidebarSection title="Settings">
@@ -23,18 +25,20 @@ describe("SidebarSection", () => {
     expect(screen.getByText("Settings Content")).toBeInTheDocument();
   });
 
+  // Confirms the component does not crash when children is null
   test("renders without crashing when children is empty (negative case)", () => {
     render(<SidebarSection title="Reports">{null}</SidebarSection>);
 
     expect(screen.getByText("Reports")).toBeInTheDocument();
   });
 
+  // Checks that no extra child elements are rendered when children is undefined
   test("does not render any child content when children is not provided (negative case)", () => {
     const { container } = render(
       <SidebarSection title="Analytics">{undefined}</SidebarSection>
     );
 
     const section = container.querySelector(".sidebar-section");
-    expect(section?.children.length).toBe(1); // only title
+    expect(section?.children.length).toBe(1); // only the title element
   });
 });

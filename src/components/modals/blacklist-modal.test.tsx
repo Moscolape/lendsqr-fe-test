@@ -1,6 +1,7 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import BlacklistUserModal from "./blacklist-modal";
 
+// Mock ModalWrapper to control open/close behavior in tests
 jest.mock("./wrapper/modal-wrapper", () => ({
   __esModule: true,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -20,6 +21,7 @@ describe("BlacklistUserModal", () => {
     jest.clearAllMocks();
   });
 
+  // Should not render modal when closed
   test("does not render when isOpen is false (negative case)", () => {
     render(
       <BlacklistUserModal
@@ -32,6 +34,7 @@ describe("BlacklistUserModal", () => {
     expect(screen.queryByText(/Blacklisting User/i)).not.toBeInTheDocument();
   });
 
+  // Clicking "No" should close the modal
   test("clicking 'No' button closes modal (negative action)", () => {
     render(
       <BlacklistUserModal
@@ -46,6 +49,7 @@ describe("BlacklistUserModal", () => {
     expect(closeMock).toHaveBeenCalled();
   });
 
+  // Clicking the backdrop should close the modal
   test("clicking backdrop closes modal (negative case)", () => {
     render(
       <BlacklistUserModal
