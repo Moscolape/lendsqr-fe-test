@@ -11,18 +11,19 @@ import type {
 
 const ENDPOINT_CONFIGS: EndpointConfig[] = [
   {
-    baseUrl: "https://6963b24b2d146d9f58d42849.mockapi.io/api/v1",
-    endpoints: ["users1", "users2"],
+    baseUrl: import.meta.env.VITE_API_1_BASE_URL || "",
+    endpoints: (import.meta.env.VITE_API_1_ENDPOINTS || "").split(","),
   },
   {
-    baseUrl: "https://6963cda42d146d9f58d46f45.mockapi.io/api/v1",
-    endpoints: ["users3", "users4"],
+    baseUrl: import.meta.env.VITE_API_2_BASE_URL || "",
+    endpoints: (import.meta.env.VITE_API_2_ENDPOINTS || "").split(","),
   },
   {
-    baseUrl: "https://6963d0372d146d9f58d4757e.mockapi.io/api/v1",
-    endpoints: ["users5", "users6"],
+    baseUrl: import.meta.env.VITE_API_3_BASE_URL || "",
+    endpoints: (import.meta.env.VITE_API_3_ENDPOINTS || "").split(","),
   },
 ];
+
 
 class MultiMockAPIService {
   private cache: User[] | null = null;
