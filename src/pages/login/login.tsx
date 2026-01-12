@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "./login.scss";
 import { ASSETS } from "../../constants/assets";
 import { AUTH_CONFIG } from "../../configs/auth";
+import { usePageTitle } from "../../hooks/usePageTitle";
 
 export default function Login(): JSX.Element {
   const [showPassword, setShowPassword] = useState<boolean>(false);
@@ -10,6 +11,8 @@ export default function Login(): JSX.Element {
   const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string>("");
   const navigate = useNavigate();
+
+  usePageTitle("Login | Lendsqr");
 
   const togglePassword = (): void => {
     setShowPassword((prev) => !prev);

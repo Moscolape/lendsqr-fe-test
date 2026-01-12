@@ -30,13 +30,14 @@
   margin-left: 10.3rem;
   border: 1px solid #dcdfe8;
   border-radius: 8px;
+  position: relative; // <-- important for positioning the X
   overflow: hidden;
 
   input {
     flex: 1;
     border: none;
     padding: 11.6px;
-    width: 344px;
+    width: 100%;
     font-size: 14px;
     outline: none;
 
@@ -55,6 +56,24 @@
 
     &:hover {
       background-color: darken(vars.$primary-bg-color, 5%);
+    }
+
+    &.clear-search {
+      position: absolute;
+      right: 4rem;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      color: red;
+      font-size: 10px;
+      padding: 0;
+      width: 16px;
+      height: 16px;
+      cursor: pointer;
+
+      &:hover {
+        color: darkred;
+      }
     }
   }
 }

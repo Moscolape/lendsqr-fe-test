@@ -3,12 +3,21 @@ import DashboardWrapper from "../../components/dashboard/wrapper/wrapper";
 import Pagination from "../../components/users/pagination/pagination";
 import UserStats from "../../components/users/ui/user-stats";
 import UsersTable from "../../components/users/table/users-table";
+
+import { useSearchParams } from "react-router-dom";
+
 import mockapi from "../../services/mockApi";
-import type { ApiFilterOptions, ClientFilterValues, User } from "../../../globalTypes";
+import type {
+  ApiFilterOptions,
+  ClientFilterValues,
+  User,
+} from "../../../globalTypes";
 import "./users.scss";
+import { usePageTitle } from "../../hooks/usePageTitle";
 
-
-const mapClientToApiFilters = (clientFilters: ClientFilterValues): ApiFilterOptions => {
+const mapClientToApiFilters = (
+  clientFilters: ClientFilterValues
+): ApiFilterOptions => {
   return {
     organization: clientFilters.organization || undefined,
     username: clientFilters.username || undefined,
@@ -20,42 +29,70 @@ const mapClientToApiFilters = (clientFilters: ClientFilterValues): ApiFilterOpti
 };
 
 export default function Users() {
+  usePageTitle("Users | Lendsqr");
+
   const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(10);
+
+  const PAGE_SIZE_KEY = "users_page_size";
+  const getInitialPageSize = (): number => {
+    const stored = localStorage.getItem(PAGE_SIZE_KEY);
+    const parsed = Number(stored);
+    return parsed && [10, 20, 50, 100].includes(parsed) ? parsed : 10;
+  };
+
+  const [pageSize, setPageSize] = useState<number>(getInitialPageSize);
   const [totalUsers, setTotalUsers] = useState(0);
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  
 
-  const [activeApiFilters, setActiveApiFilters] = useState<ApiFilterOptions>({});
-  
+  const [activeApiFilters, setActiveApiFilters] = useState<ApiFilterOptions>(
+    {}
+  );
 
-  const [tempDropdownFilters, setTempDropdownFilters] = useState<ClientFilterValues>({
-    organization: "",
-    username: "",
-    email: "",
-    dateJoined: "",
-    phoneNumber: "",
-    status: "",
-  });
-  
+  const [tempDropdownFilters, setTempDropdownFilters] =
+    useState<ClientFilterValues>({
+      organization: "",
+      username: "",
+      email: "",
+      dateJoined: "",
+      phoneNumber: "",
+      status: "",
+    });
 
-  const [activeDropdownFilters, setActiveDropdownFilters] = useState<ClientFilterValues>({
-    organization: "",
-    username: "",
-    email: "",
-    dateJoined: "",
-    phoneNumber: "",
-    status: "",
-  });
+  const [activeDropdownFilters, setActiveDropdownFilters] =
+    useState<ClientFilterValues>({
+      organization: "",
+      username: "",
+      email: "",
+      dateJoined: "",
+      phoneNumber: "",
+      status: "",
+    });
 
+  const [searchParams] = useSearchParams();
+  const searchQuery = searchParams.get("search") || "";
+
+  useEffect(() => {
+    if (searchQuery) {
+      setActiveApiFilters((prev) => ({
+        ...prev,
+        search: searchQuery,
+      }));
+      setPage(1);
+    } else {
+      setActiveApiFilters((prev) => {
+        const next = { ...prev };
+        delete next.search;
+        return next;
+      });
+    }
+  }, [searchQuery]);
 
   const loadUsers = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
-
 
       const combinedFilters = {
         ...mapClientToApiFilters(activeDropdownFilters),
@@ -80,11 +117,16 @@ export default function Users() {
     loadUsers();
   }, [loadUsers]);
 
+  useEffect(() => {
+    localStorage.setItem(PAGE_SIZE_KEY, String(pageSize));
+  }, [pageSize]);
 
-  const handleTempFilterChange = (field: keyof ClientFilterValues, value: string) => {
-    setTempDropdownFilters(prev => ({ ...prev, [field]: value }));
+  const handleTempFilterChange = (
+    field: keyof ClientFilterValues,
+    value: string
+  ) => {
+    setTempDropdownFilters((prev) => ({ ...prev, [field]: value }));
   };
-
 
   const handleApplyDropdownFilters = () => {
     setActiveDropdownFilters(tempDropdownFilters);
@@ -108,6 +150,7 @@ export default function Users() {
       phoneNumber: "",
       status: "",
     });
+    setActiveApiFilters({});
     setPage(1);
   };
 
@@ -175,7 +218,7 @@ export default function Users() {
           </div>
         ) : (
           <>
-            <UsersTable 
+            <UsersTable
               data={tableData}
               onTempFilterChange={handleTempFilterChange}
               onApplyFilters={handleApplyDropdownFilters}
@@ -203,9 +246,7 @@ export default function Users() {
         {!loading && users.length === 0 && !error && (
           <div className="empty-state">
             <p>No users found.</p>
-            <button onClick={handleResetAllFilters}>
-              Clear all filters
-            </button>
+            <button onClick={handleResetAllFilters}>Clear all filters</button>
           </div>
         )}
       </div>

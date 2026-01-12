@@ -10,11 +10,7 @@ export const filterConfig: {
   {
     key: "organization",
     label: "Organization",
-    options: [
-      { label: "Lendsqr", value: "lendsqr" },
-      { label: "Lendstar", value: "lendstar" },
-      { label: "Irorun", value: "irorun" },
-    ],
+    placeholder: "Organization",
   },
   { key: "username", label: "Username", placeholder: "User" },
   { key: "email", label: "Email", type: "email", placeholder: "Email" },

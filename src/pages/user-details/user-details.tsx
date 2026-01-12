@@ -5,7 +5,7 @@ import UserDetailsHeader from "../../components/user-details/user-details-header
 import UserDetailsTabContent from "../../components/user-details/user-details-tab-content";
 import userService from "../../services/userService";
 import type { User } from "../../../globalTypes";
-
+import { usePageTitle } from "../../hooks/usePageTitle";
 
 const UserDetails = () => {
   const [activeTabState, setActiveTabState] = React.useState("General Details");
@@ -14,6 +14,8 @@ const UserDetails = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
+
+  usePageTitle("User | Lendsqr");
 
   const loadUser = React.useCallback(async () => {
     if (!userId) return;
@@ -97,7 +99,6 @@ const UserDetails = () => {
       </DashboardWrapper>
     );
   }
-
 
   const formattedUser = userService.formatUserForDisplay(user);
   const tierStars = userService.getTierStars(user.tier);
