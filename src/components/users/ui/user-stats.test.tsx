@@ -3,7 +3,7 @@ import { render, screen, act, waitFor } from "@testing-library/react";
 import UserStats from "./user-stats";
 import mockApi from "../../../services/mockApi";
 
-
+// Mock API service
 jest.mock("../../../services/mockApi", () => ({
   __esModule: true,
   default: {
@@ -11,6 +11,7 @@ jest.mock("../../../services/mockApi", () => ({
   },
 }));
 
+// Mock StatsCards to test rendering logic
 jest.mock("../stats/stats-card", () => ({
   __esModule: true,
   default: ({ stats }: any) => (
@@ -31,9 +32,7 @@ jest.mock("react-toastify", () => ({
   },
 }));
 
-
-const mockGetFormattedStats =
-  mockApi.getFormattedStats as jest.Mock;
+const mockGetFormattedStats = mockApi.getFormattedStats as jest.Mock;
 
 describe("UserStats Component", () => {
   beforeEach(() => {

@@ -24,9 +24,11 @@ describe("StatsCards Component", () => {
     render(<StatsCards stats={stats} />);
 
     stats.forEach((stat) => {
+      // Check label and value
       expect(screen.getByText(stat.label)).toBeInTheDocument();
       expect(screen.getByText(String(stat.value))).toBeInTheDocument();
 
+      // Check if variant class exists
       const cardIcon = screen.getByText((_content, element) => {
         return element?.classList.contains(stat.variant || "purple") ?? false;
       });
@@ -40,6 +42,7 @@ describe("StatsCards Component", () => {
     ];
     render(<StatsCards stats={statsWithNoVariant} />);
 
+    // Default variant should be purple
     const cardIcon = screen.getByText((_content, element) => {
       return element?.classList.contains("purple") ?? false;
     });

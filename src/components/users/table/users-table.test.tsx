@@ -3,6 +3,7 @@ import { render, screen } from "@testing-library/react";
 import UsersTable, { type UserRow } from "./users-table";
 import { useUserFilters } from "../../../hooks/useUserFilters";
 
+// Empty filters object for negative test scenarios
 const emptyFilters = {
   organization: "",
   username: "",
@@ -12,6 +13,7 @@ const emptyFilters = {
   status: "",
 };
 
+// Mock UsersTableHeader to isolate UsersTable component testing
 jest.mock(
   "../../users/ui/users-table-header",
   () =>
@@ -43,6 +45,7 @@ jest.mock(
       )
 );
 
+// Mock UserRowItem to prevent rendering full component
 jest.mock("../ui/user-row", () => ({ user }: any) => (
   <tr data-testid="mock-row">
     <td>{user.organization}</td>
@@ -84,15 +87,9 @@ describe("UsersTable Component", () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
+    // Provide default mocked return value for filters
     mockedUseUserFilters.mockReturnValue({
-      filters: {
-        organization: "",
-        username: "",
-        email: "",
-        phoneNumber: "",
-        dateJoined: "",
-        status: "",
-      },
+      filters: emptyFilters,
       setFilters: jest.fn(),
       resetFilters: jest.fn(),
       filteredData: data,
@@ -102,7 +99,9 @@ describe("UsersTable Component", () => {
   test("renders table with headers and rows", () => {
     render(<UsersTable data={data} />);
 
+    // Header should render
     expect(screen.getByTestId("mock-header")).toBeInTheDocument();
+    // Rows should match data length
     const rows = screen.getAllByTestId("mock-row");
     expect(rows).toHaveLength(2);
   });

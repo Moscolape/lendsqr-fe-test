@@ -9,17 +9,18 @@ import ActivateUserModal from "../../modals/activate-modal";
 
 interface Props {
   user: UserRow;
-  isLast: boolean;
+  isLast: boolean; // used for styling last row
 }
 
 const UserRowItem: React.FC<Props> = ({ user, isLast }) => {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false); // dropdown open/close
   const [blacklistModalOpen, setBlacklistModalOpen] = useState(false);
   const [activateModalOpen, setActivateModalOpen] = useState(false);
 
   const navigate = useNavigate();
   const kebabBtnRef = useRef<HTMLButtonElement | null>(null);
 
+  // Handles dropdown actions
   const handleAction = (action: string) => {
     switch (action) {
       case "view":
@@ -63,22 +64,23 @@ const UserRowItem: React.FC<Props> = ({ user, isLast }) => {
             <MoreVertical size={20} />
           </button>
 
+          {/* Render dropdown if open */}
           {open && (
             <UserActionsDropdown
               onAction={handleAction}
               onClose={() => setOpen(false)}
               triggerRef={kebabBtnRef}
+              status={user.status}
             />
           )}
         </td>
       </tr>
 
+      {/* Conditional modals */}
       {blacklistModalOpen && (
         <BlacklistUserModal
           isOpen={blacklistModalOpen}
-          onConfirm={() => {
-            setBlacklistModalOpen(false);
-          }}
+          onConfirm={() => setBlacklistModalOpen(false)}
           close={() => setBlacklistModalOpen(false)}
         />
       )}
@@ -86,9 +88,7 @@ const UserRowItem: React.FC<Props> = ({ user, isLast }) => {
       {activateModalOpen && (
         <ActivateUserModal
           isOpen={activateModalOpen}
-          onConfirm={() => {
-            setActivateModalOpen(false);
-          }}
+          onConfirm={() => setActivateModalOpen(false)}
           close={() => setActivateModalOpen(false)}
         />
       )}

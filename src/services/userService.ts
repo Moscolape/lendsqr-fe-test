@@ -2,7 +2,16 @@ import mockapi from "./mockApi";
 import userCache from "./userCache";
 import type { User } from "../../globalTypes";
 
+/**
+ * High-level service that fetches users from API and caches them
+ * Provides utility methods for formatting and updating users
+ */
 class UserService {
+  /**
+   * Get a user by ID
+   * - First checks local cache
+   * - Falls back to mock API if not cached
+   */
   async getUserById(id: string): Promise<User | null> {
     const cachedUser = userCache.getCachedUser(id);
     if (cachedUser) {
@@ -13,27 +22,24 @@ class UserService {
     console.log("Fetching user from API:", id);
     const user = await mockapi.getUserById(id);
 
-    if (user) {
-      userCache.cacheUser(user);
-    }
+    if (user) userCache.cacheUser(user); // Cache for future
 
     return user;
   }
 
-  async updateUserStatus(
-    userId: string,
-    status: User["status"]
-  ): Promise<boolean> {
+  /**
+   * Update user's status
+   * - Updates in local cache
+   * - Invalidates mock API cache
+   */
+  async updateUserStatus(userId: string, status: User["status"]): Promise<boolean> {
     try {
       const user = await this.getUserById(userId);
 
       if (user) {
         const updatedUser = { ...user, status };
-
         userCache.cacheUser(updatedUser);
-
         mockapi.invalidateCache();
-
         return true;
       }
 
@@ -44,6 +50,10 @@ class UserService {
     }
   }
 
+  /**
+   * Format user object for display in UI
+   * - Fills missing fields with default placeholders
+   */
   formatUserForDisplay(user: User) {
     return {
       id: user.id,
@@ -92,6 +102,9 @@ class UserService {
     };
   }
 
+  /**
+   * Ensure tier is between 1 and 3 for display purposes
+   */
   getTierStars(tier: number): number {
     return Math.min(Math.max(tier, 1), 3);
   }

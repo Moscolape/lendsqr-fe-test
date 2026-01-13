@@ -2,12 +2,23 @@ import { InfoGroup } from "../ui/info-group";
 import "../tabs.scss";
 import type { User } from "../../../../globalTypes";
 
+/**
+ * Props definition for tab components
+ * that depend on user data.
+ */
 interface TabComponentProps {
   userData: User;
 }
 
+/**
+ * BankDetails
+ *
+ * Renders banking information for a user,
+ * including bank name, account number, and balance.
+ */
 const BankDetails: React.FC<TabComponentProps> = ({ userData }) => {
   return (
+    // Wrapper card for bank details tab
     <div className="tab-card">
       <InfoGroup
         title="Bank Details"

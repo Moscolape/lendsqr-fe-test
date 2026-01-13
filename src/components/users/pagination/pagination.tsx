@@ -21,7 +21,7 @@ const Pagination: React.FC<PaginationProps> = ({
   onPageChange,
   onPageSizeChange,
 }) => {
-  if (!totalItems) return null;
+  if (!totalItems) return null; // Skip rendering if no items
 
   const handlePrev = () => {
     if (currentPage > 1) {
@@ -39,6 +39,7 @@ const Pagination: React.FC<PaginationProps> = ({
 
   return (
     <div className="pagination">
+      {/* Info and page size selector */}
       <div className="pagination-info">
         Showing
         <select
@@ -46,14 +47,13 @@ const Pagination: React.FC<PaginationProps> = ({
           onChange={(e) => onPageSizeChange(Number(e.target.value))}
         >
           {PAGE_SIZES.map((size) => (
-            <option key={size} value={size}>
-              {size}
-            </option>
+            <option key={size} value={size}>{size}</option>
           ))}
         </select>
         out of {totalItems}
       </div>
 
+      {/* Pagination controls */}
       <div className="pagination-controls">
         <button
           className="icon-btn"
@@ -63,22 +63,19 @@ const Pagination: React.FC<PaginationProps> = ({
           <ChevronLeft size={18} />
         </button>
 
+        {/* Show previous page if not first */}
         {currentPage > 1 && (
-          <button
-            className="page-btn"
-            onClick={() => onPageChange(currentPage - 1)}
-          >
+          <button className="page-btn" onClick={() => onPageChange(currentPage - 1)}>
             {currentPage - 1}
           </button>
         )}
 
+        {/* Current active page */}
         <button className="page-btn active">{currentPage}</button>
 
+        {/* Show next page if not last */}
         {currentPage < totalPages && (
-          <button
-            className="page-btn"
-            onClick={() => onPageChange(currentPage + 1)}
-          >
+          <button className="page-btn" onClick={() => onPageChange(currentPage + 1)}>
             {currentPage + 1}
           </button>
         )}

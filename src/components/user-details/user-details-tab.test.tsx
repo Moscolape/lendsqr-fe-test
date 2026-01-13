@@ -2,6 +2,7 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import UserTabs from "./user-details.tab";
 
 describe("UserTabs Component", () => {
+  // Source of truth for expected tab labels
   const tabs = [
     "General Details",
     "Documents",
@@ -14,16 +15,21 @@ describe("UserTabs Component", () => {
   let onChangeMock: jest.Mock;
 
   beforeEach(() => {
+    // Mock tab change handler
     onChangeMock = jest.fn();
+
+    // Render component with a default active tab
     render(<UserTabs activeTab="General Details" onChange={onChangeMock} />);
   });
 
+  // Ensure all tabs are visible in the UI
   test("renders all tabs correctly", () => {
     tabs.forEach((tab) => {
       expect(screen.getByText(tab)).toBeInTheDocument();
     });
   });
 
+  // Active tab should be visually highlighted
   test("marks the active tab correctly", () => {
     const activeButton = screen.getByText("General Details");
     expect(activeButton).toHaveClass("active");
@@ -32,6 +38,7 @@ describe("UserTabs Component", () => {
     expect(inactiveButton).not.toHaveClass("active");
   });
 
+  // Clicking a tab should notify the parent component
   test("calls onChange when clicking a tab", () => {
     const documentsTab = screen.getByText("Documents");
     fireEvent.click(documentsTab);
@@ -40,8 +47,8 @@ describe("UserTabs Component", () => {
     expect(onChangeMock).toHaveBeenCalledWith("Documents");
   });
 
-  test("does not call onChange if a non-existent tab is clicked (negative case)", () => {
-    const fakeButton = screen.queryByText("Fake Tab");
-    expect(fakeButton).not.toBeInTheDocument();
+  // Guard against rendering unexpected or invalid tabs
+  test("does not render non-existent tabs (negative case)", () => {
+    expect(screen.queryByText("Fake Tab")).not.toBeInTheDocument();
   });
 });

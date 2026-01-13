@@ -2,12 +2,22 @@ import "../tabs.scss";
 import { InfoGroup } from "../ui/info-group";
 import { type User } from "../../../../globalTypes";
 
+/**
+ * Props definition for GeneralDetails component
+ */
 interface Props {
   userData: User;
 }
 
+/**
+ * GeneralDetails
+ *
+ * Displays grouped personal, educational, social,
+ * and guarantor information for a user.
+ */
 const GeneralDetails: React.FC<Props> = ({ userData }) => {
   return (
+    // Wrapper card for General Details tab
     <div className="tab-card">
       <InfoGroup
         title="Personal Information"

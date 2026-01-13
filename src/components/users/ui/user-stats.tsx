@@ -4,6 +4,7 @@ import StatsCards, { type StatItem } from "../stats/stats-card";
 import mockapi from "../../../services/mockApi";
 import { toast } from "react-toastify";
 
+// Placeholder stats to display while loading real data
 const placeholderStats: StatItem[] = [
   {
     id: "users",
@@ -43,6 +44,7 @@ export default function UserStats() {
   useEffect(() => {
     loadRealStats();
 
+    // Show toast if there is an error
     if (error) {
       toast.error(error);
     }
@@ -55,6 +57,7 @@ export default function UserStats() {
 
       const formattedStats = await mockapi.getFormattedStats();
 
+      // Map API results to StatItem array
       const realStats: StatItem[] = [
         {
           id: "users",
@@ -95,6 +98,7 @@ export default function UserStats() {
     }
   };
 
+  // While loading, show placeholder stats
   if (loading) {
     return <StatsCards stats={placeholderStats} />;
   }

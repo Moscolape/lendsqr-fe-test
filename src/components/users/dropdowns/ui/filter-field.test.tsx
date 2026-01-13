@@ -2,6 +2,7 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import FilterField from "./filter-field";
 
 describe("FilterField Component", () => {
+  // Verifies default rendering of a text input with an associated label
   test("renders input field with label", () => {
     const mockChange = jest.fn();
     render(<FilterField label="Name" value="" onChange={mockChange} />);
@@ -10,12 +11,14 @@ describe("FilterField Component", () => {
     expect(screen.getByLabelText("Name")).toHaveAttribute("type", "text");
   });
 
+  // Ensures a select element is rendered when options are provided
   test("renders select dropdown when options are provided", () => {
     const mockChange = jest.fn();
     const options = [
       { label: "Option A", value: "A" },
       { label: "Option B", value: "B" },
     ];
+
     render(
       <FilterField
         label="Choice"
@@ -30,6 +33,7 @@ describe("FilterField Component", () => {
     expect(screen.getByText("Option B")).toBeInTheDocument();
   });
 
+  // Confirms controlled input behavior for text-based inputs
   test("calls onChange when input value changes", () => {
     const mockChange = jest.fn();
     render(
@@ -42,12 +46,14 @@ describe("FilterField Component", () => {
     expect(mockChange).toHaveBeenCalledWith("test@example.com");
   });
 
+  // Confirms controlled behavior for select dropdowns
   test("calls onChange when select value changes", () => {
     const mockChange = jest.fn();
     const options = [
       { label: "Option A", value: "A" },
       { label: "Option B", value: "B" },
     ];
+
     render(
       <FilterField
         label="Choice"
@@ -60,9 +66,11 @@ describe("FilterField Component", () => {
     fireEvent.change(screen.getByLabelText("Choice"), {
       target: { value: "B" },
     });
+
     expect(mockChange).toHaveBeenCalledWith("B");
   });
 
+  // Guards against incorrect input type or value mutation
   test("does not allow wrong type or value to render", () => {
     const mockChange = jest.fn();
     render(

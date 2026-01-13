@@ -1,11 +1,20 @@
 import "../tabs.scss";
 
+/**
+ * Loans
+ *
+ * Displays a summary table of the user's loan information,
+ * including loan type, amount, status, and repayment details.
+ */
 const Loans = () => {
   return (
+    // Wrapper card for the Loans tab
     <div className="tab-card">
       <section className="info-group">
+        {/* Section heading */}
         <h4>Loans</h4>
 
+        {/* Simple table displaying loan details */}
         <table className="simple-table">
           <thead>
             <tr>
@@ -17,6 +26,7 @@ const Loans = () => {
           </thead>
 
           <tbody>
+            {/* Static loan record row */}
             <tr>
               <td>Personal Loan</td>
               <td>₦50,000</td>

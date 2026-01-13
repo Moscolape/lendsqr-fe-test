@@ -1,8 +1,15 @@
 import "../tabs.scss";
 import { InfoGroup } from "../ui/info-group";
 
+/**
+ * AppAndSystem
+ *
+ * Displays static system-related information
+ * such as login time, device, and account status.
+ */
 const AppAndSystem = () => {
   return (
+    // Wrapper card for the tab content
     <div className="tab-card">
       <InfoGroup
         title="App and System"

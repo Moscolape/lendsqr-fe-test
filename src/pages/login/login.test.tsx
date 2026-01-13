@@ -2,13 +2,16 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import Login from "./login";
 
+// Mock navigate function to test routing
 const mockedNavigate = jest.fn();
 
+// Mock react-router-dom's useNavigate hook
 jest.mock("react-router-dom", () => ({
   ...jest.requireActual("react-router-dom"),
   useNavigate: () => mockedNavigate,
 }));
 
+// Mock authentication config to provide dummy login credentials
 jest.mock("../../configs/auth", () => ({
   AUTH_CONFIG: {
     email: "lendsqr@fetest.com",
@@ -18,7 +21,7 @@ jest.mock("../../configs/auth", () => ({
 
 describe("Login Component", () => {
   beforeEach(() => {
-    mockedNavigate.mockReset();
+    mockedNavigate.mockReset(); // Reset navigation mock before each test
   });
 
   test("renders login form correctly", () => {
@@ -28,9 +31,14 @@ describe("Login Component", () => {
       </MemoryRouter>
     );
 
+    // Check that email and password inputs exist
     expect(screen.getByPlaceholderText(/Email/i)).toBeInTheDocument();
     expect(screen.getByPlaceholderText(/Password/i)).toBeInTheDocument();
+
+    // Check that the login button exists
     expect(screen.getByRole("button", { name: /LOG IN/i })).toBeInTheDocument();
+
+    // Check that the login instruction text exists
     expect(screen.getByText(/Enter details to login/i)).toBeInTheDocument();
   });
 
@@ -41,20 +49,19 @@ describe("Login Component", () => {
       </MemoryRouter>
     );
 
-    const passwordInput = screen.getByPlaceholderText(
-      /Password/i
-    ) as HTMLInputElement;
+    const passwordInput = screen.getByPlaceholderText(/Password/i) as HTMLInputElement;
     const toggleButton = screen.getByRole("button", {
       name: /toggle password visibility/i,
     });
 
+    // Initially, password input should be of type password
     expect(passwordInput.type).toBe("password");
 
     fireEvent.click(toggleButton);
-    expect(passwordInput.type).toBe("text");
+    expect(passwordInput.type).toBe("text"); // Should toggle to text
 
     fireEvent.click(toggleButton);
-    expect(passwordInput.type).toBe("password");
+    expect(passwordInput.type).toBe("password"); // Toggle back
   });
 
   test("shows error for invalid login", () => {
@@ -64,6 +71,7 @@ describe("Login Component", () => {
       </MemoryRouter>
     );
 
+    // Enter wrong email and password
     fireEvent.change(screen.getByPlaceholderText(/Email/i), {
       target: { value: "wrong@email.com" },
     });
@@ -73,6 +81,7 @@ describe("Login Component", () => {
 
     fireEvent.click(screen.getByRole("button", { name: /LOG IN/i }));
 
+    // Expect error message and no navigation
     expect(screen.getByText(/Invalid email or password/i)).toBeInTheDocument();
     expect(mockedNavigate).not.toHaveBeenCalled();
   });
@@ -84,6 +93,7 @@ describe("Login Component", () => {
       </MemoryRouter>
     );
 
+    // Enter correct credentials
     fireEvent.change(screen.getByPlaceholderText(/Email/i), {
       target: { value: "lendsqr@fetest.com" },
     });
@@ -93,9 +103,10 @@ describe("Login Component", () => {
 
     fireEvent.click(screen.getByRole("button", { name: /LOG IN/i }));
 
-    expect(
-      screen.queryByText(/Invalid email or password/i)
-    ).not.toBeInTheDocument();
+    // No error should be shown
+    expect(screen.queryByText(/Invalid email or password/i)).not.toBeInTheDocument();
+
+    // Navigate should be called with /users
     expect(mockedNavigate).toHaveBeenCalledWith("/users");
   });
 });

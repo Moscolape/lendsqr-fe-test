@@ -5,6 +5,7 @@ import { filterConfig } from "../../../../configs/filterConfig";
 import FilterField from "../ui/filter-field";
 import FilterActions from "../ui/filter-actions";
 
+// Central type for all supported filter fields
 export type FilterValues = {
   organization: string;
   username: string;
@@ -15,11 +16,22 @@ export type FilterValues = {
 };
 
 interface FilterDropdownProps {
+  // Current filter values (controlled by parent)
   values: FilterValues;
+
+  // Called when a specific filter field changes
   onChange: (field: keyof FilterValues, value: string) => void;
+
+  // Clears all filter values
   onReset: () => void;
+
+  // Applies current filters
   onFilter: () => void;
+
+  // Closes the dropdown
   onClose: () => void;
+
+  // Optional reference to the element that triggered the dropdown
   triggerRef?: React.RefObject<HTMLImageElement | null>;
 }
 
@@ -29,14 +41,17 @@ const FilterDropdown: React.FC<FilterDropdownProps> = ({
   onReset,
   onFilter,
   onClose,
-  triggerRef
+  triggerRef,
 }) => {
+  // Ref used to detect outside clicks
   const ref = useRef<HTMLDivElement>(null);
 
+  // Close dropdown when clicking outside, excluding trigger element if provided
   useClickOutside(ref, onClose, triggerRef ? [triggerRef] : []);
 
   return (
     <div className="filter-dropdown" ref={ref}>
+      {/* Dynamically render fields based on configuration */}
       {filterConfig.map((field) => (
         <FilterField
           key={field.key}
@@ -49,6 +64,7 @@ const FilterDropdown: React.FC<FilterDropdownProps> = ({
         />
       ))}
 
+      {/* Action buttons for resetting or applying filters */}
       <FilterActions
         onReset={onReset}
         onFilter={() => {

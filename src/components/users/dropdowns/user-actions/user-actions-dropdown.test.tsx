@@ -1,7 +1,7 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import UserActionsDropdown from "./user-actions-dropdown";
 
-
+// Mocking userActions config allows testing against fixed action set
 jest.mock("../../../../configs/actionsConfig", () => ({
   userActions: [
     { key: "view", label: "View User", icon: "view-icon" },
@@ -10,23 +10,23 @@ jest.mock("../../../../configs/actionsConfig", () => ({
   ],
 }));
 
-
+// Mocking hook prevents unnecessary DOM manipulation during tests
 jest.mock("../../../../hooks/useClickOutside", () => ({
   useClickOutside: jest.fn(),
 }));
 
 describe("UserActionsDropdown Component", () => {
+  // Setup utility to reduce repeated code in multiple tests
   const setup = () => {
     const onClose = jest.fn();
     const onAction = jest.fn();
-
     render(<UserActionsDropdown onClose={onClose} onAction={onAction} />);
     return { onClose, onAction };
   };
 
   test("renders all action items", () => {
     setup();
-
+    // Confirms all actions from config render correctly
     expect(screen.getByText("View User")).toBeInTheDocument();
     expect(screen.getByText("Blacklist User")).toBeInTheDocument();
     expect(screen.getByText("Activate User")).toBeInTheDocument();
@@ -34,9 +34,10 @@ describe("UserActionsDropdown Component", () => {
 
   test("calls onAction and onClose when an action item is clicked", () => {
     const { onAction, onClose } = setup();
-
     fireEvent.click(screen.getByText("Blacklist User"));
+    // Ensures callback is called with correct key
     expect(onAction).toHaveBeenCalledWith("blacklist");
+    // onClose should trigger after any action
     expect(onClose).toHaveBeenCalledTimes(1);
 
     fireEvent.click(screen.getByText("Activate User"));
@@ -46,6 +47,7 @@ describe("UserActionsDropdown Component", () => {
 
   test("does not call onAction when clicking outside (negative case)", () => {
     const { onAction } = setup();
+    // Ensures no action fires unless explicitly clicked
     expect(onAction).not.toHaveBeenCalled();
   });
 

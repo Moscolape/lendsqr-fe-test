@@ -1,6 +1,13 @@
 import { testInfoGroupTab } from "../../../utils/test-helpers/testInfoGroupTab";
 import Savings from "./savings";
 
+/**
+ * Test suite for the Savings tab
+ *
+ * Uses a shared test helper to validate that
+ * the InfoGroup component renders correctly
+ * with expected titles and values.
+ */
 describe("Savings Tab", () => {
   testInfoGroupTab({
     component: <Savings />,

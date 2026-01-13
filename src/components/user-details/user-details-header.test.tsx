@@ -3,7 +3,9 @@ import { render, screen } from "@testing-library/react";
 import UserDetailsHeader from "./user-details-header";
 import { createMockUser } from "../../utils/test-helpers/mockUserData";
 
-
+/**
+ * Mock Blacklist modal to isolate UserDetailsHeader behavior
+ */
 jest.mock("../modals/blacklist-modal", () => ({
   __esModule: true,
   default: ({ isOpen, userName, onConfirm, close }: any) =>
@@ -16,6 +18,9 @@ jest.mock("../modals/blacklist-modal", () => ({
     ) : null,
 }));
 
+/**
+ * Mock Activate modal to isolate UserDetailsHeader behavior
+ */
 jest.mock("../modals/activate-modal", () => ({
   __esModule: true,
   default: ({ isOpen, userName, onConfirm, close }: any) =>
@@ -50,6 +55,7 @@ describe("UserDetailsHeader Component", () => {
       />
     );
 
+    // Blacklist button should be disabled for blacklisted users
     const blacklistButton = screen.getByText("Blacklist User");
     expect(blacklistButton).toBeDisabled();
   });
@@ -66,6 +72,7 @@ describe("UserDetailsHeader Component", () => {
       />
     );
 
+    // Verify formatted balance and bank details
     expect(screen.getByText("₦200,000.00")).toBeInTheDocument();
     expect(screen.getByText("9912345678/Providus Bank")).toBeInTheDocument();
   });

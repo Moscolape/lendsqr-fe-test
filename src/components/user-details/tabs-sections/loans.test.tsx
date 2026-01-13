@@ -1,7 +1,20 @@
 import { render, screen } from "@testing-library/react";
 import Loans from "./loans";
 
+/**
+ * Test suite for the Loans tab
+ *
+ * Ensures:
+ * - The Loans section title renders correctly
+ * - Table headers are displayed as expected
+ * - Table row values render correctly
+ * - Invalid or unexpected values are not rendered
+ */
 describe("Loans Tab", () => {
+  /**
+   * Render the Loans component before each test
+   * to ensure test isolation.
+   */
   beforeEach(() => {
     render(<Loans />);
   });
@@ -12,6 +25,7 @@ describe("Loans Tab", () => {
 
   test("renders all table headers", () => {
     const headers = ["Loan Type", "Amount", "Status", "Repayment"];
+
     headers.forEach((header) => {
       expect(screen.getByText(header)).toBeInTheDocument();
     });
@@ -19,6 +33,7 @@ describe("Loans Tab", () => {
 
   test("renders all table row values correctly", () => {
     const values = ["Personal Loan", "₦50,000", "Active", "₦10,000/month"];
+
     values.forEach((value) => {
       expect(screen.getByText(value)).toBeInTheDocument();
     });

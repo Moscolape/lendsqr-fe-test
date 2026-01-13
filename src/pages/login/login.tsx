@@ -5,6 +5,10 @@ import { ASSETS } from "../../constants/assets";
 import { AUTH_CONFIG } from "../../configs/auth";
 import { usePageTitle } from "../../hooks/usePageTitle";
 
+/**
+ * Login component renders the login page with email/password fields,
+ * password visibility toggle, and dummy authentication.
+ */
 export default function Login(): JSX.Element {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [email, setEmail] = useState<string>("");
@@ -12,29 +16,35 @@ export default function Login(): JSX.Element {
   const [error, setError] = useState<string>("");
   const navigate = useNavigate();
 
+  // Set the page title using custom hook
   usePageTitle("Login | Lendsqr");
 
+  // Toggle password input visibility
   const togglePassword = (): void => {
     setShowPassword((prev) => !prev);
   };
 
+  // Dummy credentials from config
   const dummyEmail = AUTH_CONFIG.email;
   const dummyPassword = AUTH_CONFIG.password;
 
+  // Handle form submission
   const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     if (email === dummyEmail && password === dummyPassword) {
       setError("");
-      navigate("/users");
+      navigate("/users"); // Navigate to users page on successful login
     } else {
-      setError("Invalid email or password");
+      setError("Invalid email or password"); // Show error message
     }
   };
 
+  // Update state when email input changes
   const handleEmailChange = (e: ChangeEvent<HTMLInputElement>): void => {
     setEmail(e.target.value);
   };
 
+  // Update state when password input changes
   const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>): void => {
     setPassword(e.target.value);
   };
@@ -52,6 +62,7 @@ export default function Login(): JSX.Element {
           <h1 className="login-header">Welcome!</h1>
           <p className="login-instruction">Enter details to login.</p>
 
+          {/* Show error if login fails */}
           {error && <span className="error">{error}</span>}
 
           <form className="login-form-fields" onSubmit={handleSubmit}>
@@ -76,6 +87,7 @@ export default function Login(): JSX.Element {
                 onChange={handlePasswordChange}
               />
 
+              {/* Password visibility toggle */}
               <span
                 className="show-password"
                 onClick={togglePassword}

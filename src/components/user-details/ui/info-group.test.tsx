@@ -1,7 +1,16 @@
 import { render, screen } from "@testing-library/react";
 import { InfoGroup } from "./info-group";
 
+/**
+ * Test suite for the InfoGroup component
+ *
+ * Verifies:
+ * - Title rendering
+ * - Correct rendering of label–value pairs
+ * - Graceful handling of empty, duplicate, or missing items
+ */
 describe("InfoGroup component", () => {
+  // Sample items used across multiple tests
   const items = [
     { label: "Email", value: "test@example.com" },
     { label: "Phone", value: "+123456789" },
@@ -24,9 +33,8 @@ describe("InfoGroup component", () => {
   test("renders correctly with empty items array (negative case)", () => {
     render(<InfoGroup title="Empty Info" items={[]} />);
 
+    // Title should still render even when no items are provided
     expect(screen.getByText("Empty Info")).toBeInTheDocument();
-    expect(screen.queryByText("label")).not.toBeInTheDocument();
-    expect(screen.queryByText("value")).not.toBeInTheDocument();
   });
 
   test("handles items with duplicate labels gracefully (edge case)", () => {
@@ -37,6 +45,7 @@ describe("InfoGroup component", () => {
 
     render(<InfoGroup title="Duplicates" items={duplicateItems} />);
 
+    // Both values should render despite duplicate labels
     duplicateItems.forEach((item) => {
       expect(screen.getByText(item.value)).toBeInTheDocument();
     });

@@ -1,6 +1,8 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import FilterDropdown, { type FilterValues } from "./filter-dropdown";
 
+// Mock filter configuration to keep tests deterministic
+// and independent of real config changes
 jest.mock("../../../../configs/filterConfig", () => ({
   filterConfig: [
     { key: "organization", label: "Organization", type: "text" },
@@ -9,11 +11,13 @@ jest.mock("../../../../configs/filterConfig", () => ({
   ],
 }));
 
+// Mock click-outside hook to avoid DOM event complexity in unit tests
 jest.mock("../../../../hooks/useClickOutside", () => ({
   useClickOutside: jest.fn(),
 }));
 
 describe("FilterDropdown Component", () => {
+  // Default filter state used across tests
   const defaultValues: FilterValues = {
     organization: "",
     username: "",
@@ -23,6 +27,7 @@ describe("FilterDropdown Component", () => {
     status: "",
   };
 
+  // Shared test setup to reduce duplication
   const setup = (values = defaultValues) => {
     const onChange = jest.fn();
     const onReset = jest.fn();
@@ -42,6 +47,7 @@ describe("FilterDropdown Component", () => {
     return { onChange, onReset, onFilter, onClose };
   };
 
+  // Ensures UI reflects the filterConfig structure
   test("renders all filter fields based on config", () => {
     setup();
 
@@ -50,6 +56,7 @@ describe("FilterDropdown Component", () => {
     expect(screen.getByLabelText("Status")).toBeInTheDocument();
   });
 
+  // Verifies controlled input behaviour
   test("calls onChange when input value changes", () => {
     const { onChange } = setup();
 
@@ -59,6 +66,7 @@ describe("FilterDropdown Component", () => {
     expect(onChange).toHaveBeenCalledWith("username", "Alice");
   });
 
+  // Confirms reset action propagates correctly
   test("calls onReset when Reset button is clicked", () => {
     const { onReset } = setup();
 
@@ -66,6 +74,7 @@ describe("FilterDropdown Component", () => {
     expect(onReset).toHaveBeenCalledTimes(1);
   });
 
+  // Filter action should apply filters and close dropdown
   test("calls onFilter and onClose when Filter button is clicked", () => {
     const { onFilter, onClose } = setup();
 
@@ -74,6 +83,7 @@ describe("FilterDropdown Component", () => {
     expect(onClose).toHaveBeenCalledTimes(1);
   });
 
+  // Guard against rendering unexpected fields
   test("does not render unexpected field labels", () => {
     setup();
     expect(screen.queryByLabelText("Nonexistent")).not.toBeInTheDocument();

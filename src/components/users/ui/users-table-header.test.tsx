@@ -2,7 +2,7 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import UsersTableHeader from "./users-table-header";
 import type { ClientFilterValues } from "../../../../globalTypes";
 
-
+// Mock FilterDropdown to isolate UsersTableHeader component
 jest.mock("../dropdowns/filter/filter-dropdown", () => ({
   __esModule: true,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -16,7 +16,7 @@ jest.mock("../dropdowns/filter/filter-dropdown", () => ({
   ),
 }));
 
-
+// Mock HeaderCell to test header row layout
 jest.mock("./users-table-header-cell", () => ({
   __esModule: true,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -60,6 +60,7 @@ describe("UsersTableHeader Component", () => {
       </table>
     );
 
+    // Check all column headers are rendered
     expect(screen.getByText("Organization")).toBeInTheDocument();
     expect(screen.getByText("Username")).toBeInTheDocument();
     expect(screen.getByText("Email")).toBeInTheDocument();
@@ -132,7 +133,7 @@ describe("UsersTableHeader Component", () => {
   });
 
   test("calls onClose when dropdown close button is clicked", () => {
-    const consoleSpy = jest.spyOn(console, 'log');
+    const consoleSpy = jest.spyOn(console, 'log'); // No-op, ensure nothing is logged
     
     render(
       <table>

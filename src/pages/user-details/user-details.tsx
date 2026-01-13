@@ -7,16 +7,24 @@ import userService from "../../services/userService";
 import type { User } from "../../../globalTypes";
 import { usePageTitle } from "../../hooks/usePageTitle";
 
+/**
+ * UserDetails page fetches a single user's details and displays
+ * a header with user info and tabs for different details sections.
+ */
 const UserDetails = () => {
   const [activeTabState, setActiveTabState] = React.useState("General Details");
-  const { userId } = useParams<{ userId: string }>();
+  const { userId } = useParams<{ userId: string }>(); // Extract userId from URL
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
 
+  // Set dynamic page title
   usePageTitle("User | Lendsqr");
 
+  /**
+   * Fetch user data from API
+   */
   const loadUser = React.useCallback(async () => {
     if (!userId) return;
 
@@ -49,6 +57,7 @@ const UserDetails = () => {
     navigate("/users");
   };
 
+  // Show error if no userId provided
   if (!userId) {
     return (
       <DashboardWrapper>
@@ -60,6 +69,7 @@ const UserDetails = () => {
     );
   }
 
+  // Show loading skeleton while fetching
   if (loading) {
     return (
       <DashboardWrapper>
@@ -77,6 +87,7 @@ const UserDetails = () => {
     );
   }
 
+  // Show error if fetching fails
   if (error) {
     return (
       <DashboardWrapper>
@@ -89,6 +100,7 @@ const UserDetails = () => {
     );
   }
 
+  // Show error if user not found
   if (!user) {
     return (
       <DashboardWrapper>
@@ -100,11 +112,13 @@ const UserDetails = () => {
     );
   }
 
+  // Format user for display and get tier info
   const formattedUser = userService.formatUserForDisplay(user);
   const tierStars = userService.getTierStars(user.tier);
 
   return (
     <DashboardWrapper>
+      {/* Header with tabs */}
       <UserDetailsHeader
         activeTab={activeTabState}
         onTabChange={setActiveTabState}
@@ -113,6 +127,7 @@ const UserDetails = () => {
         tierStars={tierStars}
       />
 
+      {/* Tab content */}
       <UserDetailsTabContent
         activeTab={activeTabState}
         userData={formattedUser}

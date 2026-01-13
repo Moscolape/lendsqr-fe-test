@@ -17,6 +17,7 @@ describe("Pagination Component", () => {
   };
 
   beforeAll(() => {
+    // Mocks scrollTo for test environment
     Object.defineProperty(window, "scrollTo", {
       value: jest.fn(),
       writable: true,
@@ -25,7 +26,6 @@ describe("Pagination Component", () => {
 
   test("renders pagination info and controls correctly", () => {
     setup();
-
     expect(screen.getByText(/Showing/i)).toBeInTheDocument();
     expect(screen.getByRole("combobox")).toHaveValue("10");
     expect(screen.getByText("2")).toBeInTheDocument();
@@ -35,34 +35,24 @@ describe("Pagination Component", () => {
 
   test("changes page size when select value changes", () => {
     const { onPageSizeChange } = setup();
-    const select = screen.getByRole("combobox");
-
-    fireEvent.change(select, { target: { value: "20" } });
+    fireEvent.change(screen.getByRole("combobox"), { target: { value: "20" } });
     expect(onPageSizeChange).toHaveBeenCalledWith(20);
   });
 
   test("calls onPageChange when previous/next buttons are clicked", () => {
     const { onPageChange } = setup();
-
-    const prevBtn = screen.getAllByRole("button")[0];
-    const nextBtn =
-      screen.getAllByRole("button")[screen.getAllByRole("button").length - 1];
-
-    fireEvent.click(prevBtn);
+    const buttons = screen.getAllByRole("button");
+    fireEvent.click(buttons[0]); // prev
     expect(onPageChange).toHaveBeenCalledWith(1);
-
-    fireEvent.click(nextBtn);
+    fireEvent.click(buttons[buttons.length - 1]); // next
     expect(onPageChange).toHaveBeenCalledWith(3);
   });
 
   test("disables prev button on first page and next button on last page", () => {
     const { rerender } = setup({ currentPage: 1, totalPages: 3 });
     const buttons = screen.getAllByRole("button");
-    const prevBtn = buttons[0];
-    const nextBtn = buttons[buttons.length - 1];
-
-    expect(prevBtn).toBeDisabled();
-    expect(nextBtn).not.toBeDisabled();
+    expect(buttons[0]).toBeDisabled();
+    expect(buttons[buttons.length - 1]).not.toBeDisabled();
 
     rerender(
       <Pagination
@@ -74,7 +64,6 @@ describe("Pagination Component", () => {
         onPageSizeChange={jest.fn()}
       />
     );
-
     const updatedButtons = screen.getAllByRole("button");
     expect(updatedButtons[0]).not.toBeDisabled();
     expect(updatedButtons[updatedButtons.length - 1]).toBeDisabled();

@@ -3,6 +3,7 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import UserDetails from "./user-details";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 
+// Mock DashboardWrapper to simplify rendering
 jest.mock("../../components/dashboard/wrapper/wrapper", () => ({
   __esModule: true,
   default: ({ children }: any) => (
@@ -10,6 +11,7 @@ jest.mock("../../components/dashboard/wrapper/wrapper", () => ({
   ),
 }));
 
+// Mock UserDetailsHeader component
 jest.mock(
   "../../components/user-details/user-details-header",
   () =>
@@ -24,6 +26,7 @@ jest.mock(
     }
 );
 
+// Mock UserDetailsTabContent component
 jest.mock(
   "../../components/user-details/user-details-tab-content",
   () =>
@@ -37,6 +40,7 @@ jest.mock(
     }
 );
 
+// Mock API service for user data
 jest.mock("../../services/mockApi", () => ({
   __esModule: true,
   default: {
@@ -51,7 +55,7 @@ jest.mock("../../services/mockApi", () => ({
 
 describe("UserDetails Page", () => {
   beforeEach(() => {
-    jest.clearAllMocks();
+    jest.clearAllMocks(); // Reset mocks before each test
   });
 
   test("shows error state when no userId param", async () => {
@@ -98,9 +102,7 @@ describe("UserDetails Page", () => {
 
     const tabContent = await screen.findByTestId("user-details-tab-content");
     expect(tabContent).toBeInTheDocument();
-    expect(
-      screen.getByText(/UserDetailsTabContent Component/)
-    ).toBeInTheDocument();
+    expect(screen.getByText(/UserDetailsTabContent Component/)).toBeInTheDocument();
   });
 
   test("tab changes when button is clicked", async () => {
@@ -114,6 +116,7 @@ describe("UserDetails Page", () => {
 
     await screen.findByTestId("user-details-header");
 
+    // Simulate tab change
     const button = screen.getByText("Change Tab");
     fireEvent.click(button);
 

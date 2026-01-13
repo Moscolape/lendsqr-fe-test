@@ -3,8 +3,10 @@ import UserRowItem from "../ui/user-row";
 import UsersTableHeader from "../ui/users-table-header";
 import "./users-table.scss";
 
+// Status types for users
 type UserStatus = "active" | "inactive" | "pending" | "blacklisted";
 
+// Type for a row in the users table
 export interface UserRow {
   id: string;
   organization: string;
@@ -16,17 +18,17 @@ export interface UserRow {
 }
 
 interface Props {
-  data: UserRow[];
+  data: UserRow[]; // Array of users to display
   onTempFilterChange?: (field: keyof ClientFilterValues, value: string) => void;
   onApplyFilters?: () => void;
   onResetFilters?: () => void;
-  tempFilters?: ClientFilterValues;
-  activeFilters?: ClientFilterValues;
+  tempFilters?: ClientFilterValues; // filters being edited
+  activeFilters?: ClientFilterValues; // filters applied
 }
 
 const UsersTable: React.FC<Props> = ({
   data,
-  onTempFilterChange = () => {},
+  onTempFilterChange = () => {}, // safe defaults to prevent undefined
   onApplyFilters = () => {},
   onResetFilters = () => {},
   tempFilters = {
@@ -41,6 +43,7 @@ const UsersTable: React.FC<Props> = ({
   return (
     <div className="users-table-wrapper">
       <table className="users-table">
+        {/* Header handles filter inputs */}
         <UsersTableHeader
           tempFilters={tempFilters}
           onTempFilterChange={onTempFilterChange}
@@ -51,9 +54,9 @@ const UsersTable: React.FC<Props> = ({
         <tbody>
           {data.map((user, idx) => (
             <UserRowItem
-              key={user.id}
+              key={user.id} // ensure unique key for React rendering
               user={user}
-              isLast={idx === data.length - 1}
+              isLast={idx === data.length - 1} // used for styling
             />
           ))}
         </tbody>

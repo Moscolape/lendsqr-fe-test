@@ -6,6 +6,9 @@ import {
   type FilterOptions,
 } from "../../globalTypes";
 
+/**
+ * Return type for the useUsers hook
+ */
 interface UseUsersReturn {
   users: User[];
   loading: boolean;
@@ -16,9 +19,17 @@ interface UseUsersReturn {
     totalCount: number;
     totalPages: number;
   };
-  refetch: () => Promise<void>;
+  refetch: () => Promise<void>; // Function to reload users on demand
 }
 
+/**
+ * Custom hook for fetching paginated user data with optional filters.
+ *
+ * @param page - Current page number (default 1)
+ * @param limit - Items per page (default 20)
+ * @param filters - Optional filter object for api query
+ * @returns users, loading state, error, pagination, and refetch function
+ */
 export function useUsers(
   page: number = 1,
   limit: number = 20,
@@ -37,6 +48,7 @@ export function useUsers(
     refetch: async () => {},
   });
 
+  // Function to load users from API
   const loadUsers = useCallback(async () => {
     setState((prev) => ({ ...prev, loading: true, error: null }));
 
@@ -57,7 +69,7 @@ export function useUsers(
           totalCount: result.totalCount,
           totalPages: result.totalPages,
         },
-        refetch: loadUsers,
+        refetch: loadUsers, // refetch calls the same function
       });
     } catch (error) {
       setState((prev) => ({
@@ -69,9 +81,10 @@ export function useUsers(
     }
   }, [page, limit, filters]);
 
+  // Automatically load users on mount or whenever dependencies change
   useEffect(() => {
     loadUsers();
   }, [loadUsers]);
 
   return state;
-}
+};

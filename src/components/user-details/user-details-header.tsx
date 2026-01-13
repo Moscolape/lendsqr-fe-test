@@ -5,6 +5,10 @@ import BlacklistUserModal from "../modals/blacklist-modal";
 import ActivateUserModal from "../modals/activate-modal";
 import "./user-details.scss";
 
+/**
+ * Data structure representing user information
+ * required by the UserDetailsHeader component.
+ */
 interface UserData {
   fullName: string;
   phoneNumber: string;
@@ -28,6 +32,9 @@ interface Props {
   onStatusUpdate?: (status: string) => void;
 }
 
+/**
+ * Displays user's avatar and identity information
+ */
 const UserProfile: React.FC<{ userData: UserData }> = ({ userData }) => (
   <div className="profile">
     <div className="avatar">
@@ -40,8 +47,14 @@ const UserProfile: React.FC<{ userData: UserData }> = ({ userData }) => (
   </div>
 );
 
+/**
+ * Simple visual divider between sections
+ */
 const Divider: React.FC = () => <div className="divider" />;
 
+/**
+ * Displays user's tier rating using stars
+ */
 const UserTier: React.FC<{ stars: number }> = ({ stars }) => (
   <div className="tier">
     <p>User's Tier</p>
@@ -57,6 +70,9 @@ const UserTier: React.FC<{ stars: number }> = ({ stars }) => (
   </div>
 );
 
+/**
+ * Displays user's financial summary
+ */
 const UserFinance: React.FC<{ userData: UserData }> = ({ userData }) => {
   const formattedBalance = new Intl.NumberFormat("en-NG", {
     style: "currency",
@@ -74,6 +90,12 @@ const UserFinance: React.FC<{ userData: UserData }> = ({ userData }) => {
   );
 };
 
+/**
+ * UserDetailsHeader
+ *
+ * Main header section for the user details page.
+ * Handles user actions, status updates, and tab navigation.
+ */
 const UserDetailsHeader: React.FC<Props> = ({
   activeTab,
   onTabChange,
@@ -84,26 +106,26 @@ const UserDetailsHeader: React.FC<Props> = ({
   const [blacklistModalOpen, setBlacklistModalOpen] = useState(false);
   const [activateModalOpen, setActivateModalOpen] = useState(false);
 
+  // Handle user blacklist action
   const handleBlacklist = async () => {
-    if (onStatusUpdate) {
-      console.log("blacklisted");
-    }
+    onStatusUpdate?.("blacklisted");
     setBlacklistModalOpen(false);
   };
 
+  // Handle user activation action
   const handleActivate = async () => {
-    if (onStatusUpdate) {
-      console.log("activated");
-    }
+    onStatusUpdate?.("active");
     setActivateModalOpen(false);
   };
 
   return (
     <section className="user-details-header">
+      {/* Back navigation */}
       <a href="/users" className="back">
         <img src={ASSETS.arrowback} alt="" /> Back to Users
       </a>
 
+      {/* Header actions */}
       <div className="top">
         <h1>User Details</h1>
 
@@ -125,6 +147,7 @@ const UserDetailsHeader: React.FC<Props> = ({
         </div>
       </div>
 
+      {/* User summary card */}
       <div className="card">
         <div className="highlighted-info">
           <UserProfile userData={userData} />
@@ -137,6 +160,7 @@ const UserDetailsHeader: React.FC<Props> = ({
         <UserTabs activeTab={activeTab} onChange={onTabChange} />
       </div>
 
+      {/* Modals */}
       {blacklistModalOpen && (
         <BlacklistUserModal
           isOpen={blacklistModalOpen}
